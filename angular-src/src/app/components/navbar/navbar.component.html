@@ -1,0 +1,46 @@
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+        aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand">Shop Name</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <!--navbar left-->
+      <ul class="nav navbar-nav navbar-left">
+        <!--home-->
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a [routerLink]="['/']">
+            <span class="glyphicon glyphicon-home"></span> Home
+          </a>
+        </li>
+      </ul>
+      <!--/navbar left-->
+      <!--navbar right-->
+      <!--contact-->
+      <ul class="nav navbar-nav navbar-right">
+        <!--products-->
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a [routerLink]="['/products']">
+            <span class="glyphicon glyphicon-shopping-cart"></span> Products
+          </a>
+        </li>
+        <!--clients-->
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a [routerLink]="['/about']">
+            <span class="glyphicon glyphicon-user"></span> Past Clients</a>
+        </li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a [routerLink]="['/contact']">
+            <span class="glyphicon glyphicon-earphone"></span> Contact Us</a>
+        </li>
+      </ul>
+      <!--/navbar right-->
+    </div>
+  </div>
+</nav>
