@@ -1,43 +1,39 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-toggleable-md navbar-default">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-        aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand">Shop Name</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#appNavbar" aria-controls="appNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand">Shop Name</a>
     </div>
-    <div id="navbar" class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse" id="appNavbar">
       <!--navbar left-->
-      <ul class="nav navbar-nav navbar-left">
+      <ul class="navbar-nav mr-auto">
         <!--home-->
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-          <a [routerLink]="['/']">
-            <span class="glyphicon glyphicon-home"></span> Home
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
+          <a [routerLink]="['/']" class="nav-link">
+            <span class="fa fa-home"></span> Home
           </a>
         </li>
       </ul>
       <!--/navbar left-->
       <!--navbar right-->
-      <!--contact-->
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav">
         <!--products-->
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-          <a [routerLink]="['/products']">
-            <span class="glyphicon glyphicon-shopping-cart"></span> Products
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
+          <a [routerLink]="['/products']" class="nav-link">
+            <span class="fa fa-shopping-cart"></span> Products
           </a>
         </li>
         <!--clients-->
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-          <a [routerLink]="['/about']">
-            <span class="glyphicon glyphicon-user"></span> Past Clients</a>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
+          <a [routerLink]="['/about']" class="nav-link">
+            <span class="	fa fa-child"></span> Past Clients</a>
         </li>
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-          <a [routerLink]="['/contact']">
-            <span class="glyphicon glyphicon-earphone"></span> Contact Us</a>
+        <!--contact-->
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
+          <a [routerLink]="['/contact']" class="nav-link">
+            <span class="fa fa-phone"></span> Contact Us</a>
         </li>
       </ul>
       <!--/navbar right-->
