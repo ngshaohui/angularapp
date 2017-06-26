@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { routes } from './app.router';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -13,13 +14,6 @@ import { ContactComponent } from './components/contact/contact.component';
 import { ProductsComponent } from './components/products/products.component';
 
 import { ContactService } from './services/contact.service';
-
-const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'products', component: ProductsComponent },
-  { path: 'contact', component: ContactComponent }
-]
 
 @NgModule({
   declarations: [
@@ -34,8 +28,8 @@ const appRoutes: Routes = [
     BrowserModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes),
-    FlashMessagesModule
+    FlashMessagesModule,
+    routes
   ],
   providers: [ContactService],
   bootstrap: [AppComponent]
