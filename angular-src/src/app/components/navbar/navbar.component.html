@@ -1,18 +1,19 @@
 <nav class="navbar navbar-toggleable-md navbar-default">
   <div class="container">
     <div class="navbar-header">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#appNavbar" aria-controls="appNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#appNavbar" aria-controls="appNavbar"
+        aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <a class="navbar-brand">Shop Name</a>
     </div>
     <div class="collapse navbar-collapse" id="appNavbar">
       <!--navbar left-->
-      <ul class="navbar-nav mr-auto">
+      <ul class="nav navbar-nav mr-auto">
         <!--home-->
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
+        <li [routerLinkActive]="['nav-link-active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
           <a [routerLink]="['/']" class="nav-link">
-            <span class="fa fa-home"></span> Home
+            <i class="fa fa-home"></i> Home
           </a>
         </li>
       </ul>
@@ -20,20 +21,20 @@
       <!--navbar right-->
       <ul class="nav navbar-nav">
         <!--products-->
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
+        <li [routerLinkActive]="['nav-link-active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
           <a [routerLink]="['/products']" class="nav-link">
-            <span class="fa fa-shopping-cart"></span> Products
+            <i class="fa fa-shopping-cart"></i> Products
           </a>
         </li>
         <!--clients-->
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
+        <li [routerLinkActive]="['nav-link-active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
           <a [routerLink]="['/about']" class="nav-link">
-            <span class="	fa fa-child"></span> Past Clients</a>
+            <i class="	fa fa-users"></i> Past Clients</a>
         </li>
         <!--contact-->
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
+        <li [routerLinkActive]="['nav-link-active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
           <a [routerLink]="['/contact']" class="nav-link">
-            <span class="fa fa-phone"></span> Contact Us</a>
+            <i class="fa fa-phone"></i> Contact Us</a>
         </li>
       </ul>
       <!--/navbar right-->
