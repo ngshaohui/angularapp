@@ -1,9 +1,26 @@
 .navbar {
+    font-weight: 700;
+    font-family: 'News Cycle';
+    border-bottom: 1px solid #eeeeee;
+    padding: 0;
+    margin-bottom: 20px;
+
+    .nav-link {
+        color: #000000;
+        padding: 1rem 1rem;
+    }
+
     .nav-link-active {
         color: #000000;
         background-color: #eeeeee;
+
         a {
             cursor: default;
         }
+    }
+
+    .nav-item:hover {
+        color: #000000;
+        background-color: #eeeeee;
     }
 }
