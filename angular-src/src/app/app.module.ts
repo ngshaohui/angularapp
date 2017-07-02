@@ -1,35 +1,32 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { routes } from './app.router';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { HomeComponent } from './components/home/home.component';
-import { AboutComponent } from './components/about/about.component';
-import { ContactComponent } from './components/contact/contact.component';
 import { ProductsComponent } from './components/products/products.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
-import { ContactService } from './services/contact.service';
+import { ViewsComponent } from './components/views/views.component';
+import { ViewsModule } from './components/views/views.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    HomeComponent,
-    AboutComponent,
-    ContactComponent,
-    ProductsComponent
+    ProductsComponent,
+    DashboardComponent,
+    ViewsComponent
   ],
   imports: [
     BrowserModule,
-    ReactiveFormsModule,
     HttpModule,
+    ViewsModule,
     routes
   ],
-  providers: [ContactService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
