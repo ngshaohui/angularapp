@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
-import { FlashMessagesModule } from 'angular2-flash-messages';
 import { routes } from './app.router';
 
 import { AppComponent } from './app.component';
@@ -28,7 +27,6 @@ import { ContactService } from './services/contact.service';
     BrowserModule,
     ReactiveFormsModule,
     HttpModule,
-    FlashMessagesModule,
     routes
   ],
   providers: [ContactService],
