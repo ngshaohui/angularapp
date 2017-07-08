@@ -7,23 +7,21 @@ import { routes } from './app.router';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProductsComponent } from './components/products/products.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 
-import { ViewsComponent } from './components/views/views.component';
 import { ViewsModule } from './components/views/views.module';
+import { DashboardModule } from './components/dashboard/dashboard.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    ProductsComponent,
-    DashboardComponent,
-    ViewsComponent
+    ProductsComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     ViewsModule,
+    DashboardModule,
     routes
   ],
   providers: [],
