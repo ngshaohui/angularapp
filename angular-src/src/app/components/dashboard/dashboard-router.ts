@@ -3,11 +3,19 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { PostComponent } from './post/post.component';
+import { OverviewComponent } from './overview/overview.component';
+import { MediaComponent } from './media/media.component';
 
 const viewsRoutes: Routes = [
     {
         path: 'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
+        children: [
+            { path: '', component: OverviewComponent },
+            { path: 'post', component: PostComponent },
+            { path: 'media', component: MediaComponent }
+        ]
     }
 ];
 
