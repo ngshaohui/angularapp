@@ -5,17 +5,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { routes } from './app.router';
 
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { ProductsComponent } from './components/products/products.component';
 
 import { ViewsModule } from './components/views/views.module';
 import { DashboardModule } from './components/dashboard/dashboard.module';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    ProductsComponent
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
-// import { ViewsRouter } from './views-router';
+import { DashboardRouter } from './dashboard-router';
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, DashboardRouter],
     declarations: [DashboardComponent, SidebarComponent],
     exports: [],
     providers: []
