@@ -44,11 +44,13 @@
     justify-content: space-between;
     padding: 1em 1em;
 
+    /* Make back to site button smaller than the other buttons */
     .sidebar-top-item-text {
       font-size: 0.85em;
       color: #000;
     }
 
+    /* Remove underline on hover */
     a:hover {
       text-decoration: none;
     }
@@ -63,11 +65,13 @@
     white-space: nowrap;
   }
 
+  /* Attempt to align icons to text (not successful) */
   .sidebar-link-item {
     flex-wrap: nowrap;
     align-items: baseline;
   }
 
+  /* Divider between sections */
   hr {
     border: 1px solid #ddd;
     width: 90%;
