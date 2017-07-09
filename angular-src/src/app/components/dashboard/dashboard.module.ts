@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+
+import { QuillModule } from 'ngx-quill';
 
 import { DashboardRouter } from './dashboard-router';
 
@@ -15,6 +17,8 @@ import { MediaComponent } from './media/media.component';
     imports: [
         CommonModule, 
         FormsModule, 
+        ReactiveFormsModule, 
+        QuillModule, 
         DashboardRouter
     ],
     declarations: [
