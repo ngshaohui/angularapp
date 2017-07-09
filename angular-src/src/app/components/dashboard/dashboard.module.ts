@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule }   from '@angular/forms';
 
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
@@ -17,6 +18,7 @@ import { MediaComponent } from './media/media.component';
         CommonModule, 
         FroalaEditorModule.forRoot(), 
         FroalaViewModule.forRoot(), 
+        FormsModule, 
         DashboardRouter
     ],
     declarations: [

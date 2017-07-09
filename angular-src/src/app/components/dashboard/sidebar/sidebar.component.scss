@@ -4,12 +4,52 @@
   .sidebar {
     height: 100%;
     min-height: 100vh;
+    font-size: 1.2em;
     font-family: 'Roboto Slab';
     z-index: 1000;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     border-right: 1px solid #eee;
     line-height: 0;
+    padding-left: 0;
+    padding-right: 0;
+
+    .sidebar-top-item {
+      justify-content: space-between;
+      padding: 1em 1em;
+
+      /* Make back to site button smaller than the other buttons */
+      .sidebar-top-item-text {
+        font-size: 0.85em;
+        color: #000;
+      }
+
+      /* Remove underline on hover */
+      a:hover {
+        text-decoration: none;
+      }
+    }
+
+    .fa {
+      padding: 0 0.3em;
+    }
+
+    label.nav-link-text {
+      cursor: inherit;
+      white-space: nowrap;
+    }
+
+    /* Attempt to align icons to text (not successful) */
+    .sidebar-link-item {
+      flex-wrap: nowrap;
+      align-items: baseline;
+    }
+
+    /* Divider between sections */
+    hr {
+      border: 1px solid #ddd;
+      width: 90%;
+    }
   }
 
   .sidebar-expand {
@@ -18,12 +58,6 @@
 
   .sidebar-collapse {
     width: 4em;
-  }
-
-  /* Sidebar navigation */
-  .sidebar {
-    padding-left: 0;
-    padding-right: 0;
   }
 
   .sidebar .nav {
@@ -38,43 +72,6 @@
   .sidebar .nav-link {
     border-radius: 0;
     color: #000;
-  }
-
-  .sidebar-top-item {
-    justify-content: space-between;
-    padding: 1em 1em;
-
-    /* Make back to site button smaller than the other buttons */
-    .sidebar-top-item-text {
-      font-size: 0.85em;
-      color: #000;
-    }
-
-    /* Remove underline on hover */
-    a:hover {
-      text-decoration: none;
-    }
-  }
-
-  .fa {
-    padding: 0 0.3em;
-  }
-
-  label.nav-link-text {
-    cursor: inherit;
-    white-space: nowrap;
-  }
-
-  /* Attempt to align icons to text (not successful) */
-  .sidebar-link-item {
-    flex-wrap: nowrap;
-    align-items: baseline;
-  }
-
-  /* Divider between sections */
-  hr {
-    border: 1px solid #ddd;
-    width: 90%;
   }
 
   /* Sidebar expand-collapse animation */
