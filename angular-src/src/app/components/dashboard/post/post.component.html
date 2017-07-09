@@ -1,6 +1,8 @@
 <div class="post-container-wrapper">
     <input type="text" [(ngModel)]="postTitle" class="form-control post-title" id="postTitle" placeholder="Title">
-
+    <form [formGroup]="form">
+        <quill-editor #editor formControlName="editor"></quill-editor>
+    </form>
     <div class="d-flex editor-control">
         <p class="text-muted">{{lastAutoSave}}</p>
         <div class="editor-buttons">
@@ -17,7 +19,7 @@
     </div>
     <h3>Parsed view</h3>
     {{postTitle}}
-    <div [innerHTML]="editorContent"></div>
+    <div [innerHTML]="form.controls.editor.value"></div>
     <h3>Raw view</h3>
-    {{editorContent}}
+    {{form.controls.editor.value}}
 </div>
