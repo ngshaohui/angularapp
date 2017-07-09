@@ -9,7 +9,6 @@ import Post from '../../core/models/post';
 })
 export class PostComponent implements OnInit {
   post: Post;
-  froalaOptions: Object;
   lastAutoSave: string;
   postTitle: string;
   editorContent: string;
@@ -29,12 +28,6 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit() {
-    //should restrict to images and videos
-    this.froalaOptions = {
-      heightMin: 400,
-      placeholderText: this.placeholderTexts[Math.floor(Math.random()*this.placeholderTexts.length)]
-      // fileAllowedTypes: ['application/pdf', 'application/msword']
-    }
   }
 
   publishPost(): void {
@@ -42,17 +35,3 @@ export class PostComponent implements OnInit {
   }
 
 }
-
-/*
- * Stuff that doesn't work
- * emojis
- * indentation (css styles in general)
- * no idea what quote does
- * font size
- * font family
- * inline style
- * paragraph style
- * align
- * files
- * table
- */

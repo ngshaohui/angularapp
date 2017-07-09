@@ -1,7 +1,6 @@
 <div class="post-container-wrapper">
-    <br>
     <input type="text" [(ngModel)]="postTitle" class="form-control post-title" id="postTitle" placeholder="Title">
-    <div [froalaEditor]=froalaOptions [(froalaModel)]="editorContent"></div>
+
     <div class="d-flex editor-control">
         <p class="text-muted">{{lastAutoSave}}</p>
         <div class="editor-buttons">

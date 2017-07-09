@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule }   from '@angular/forms';
 
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
-
 import { DashboardRouter } from './dashboard-router';
 
 import { DashboardComponent } from './dashboard.component';
@@ -16,8 +14,6 @@ import { MediaComponent } from './media/media.component';
 @NgModule({
     imports: [
         CommonModule, 
-        FroalaEditorModule.forRoot(), 
-        FroalaViewModule.forRoot(), 
         FormsModule, 
         DashboardRouter
     ],
