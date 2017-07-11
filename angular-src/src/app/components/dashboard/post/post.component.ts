@@ -73,10 +73,7 @@ export class PostComponent implements OnInit {
     //extract image tags and host them onto db separately
   }
 
-<<<<<<< HEAD
   //this should be in a service
-=======
->>>>>>> 411cb3615d0556a160940ae70b158598d610ca74
   private autoSave(): Date {
     console.log("autosaved");
     //do api call to server
