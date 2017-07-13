@@ -4,7 +4,7 @@ import { QuillEditorComponent } from 'ngx-quill/src/quill-editor.component';
 import "rxjs/add/operator/debounceTime";
 import 'rxjs/add/operator/distinctUntilChanged';
 
-import Post from '../../core/models/post';
+import Post from '../../core/models/blogpost';
 
 @Component({
   selector: 'app-post',

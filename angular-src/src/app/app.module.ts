@@ -6,6 +6,7 @@ import { routes } from './app.router';
 
 import { AppComponent } from './app.component';
 
+import { CoreModule } from './components/core/core.module';
 import { ViewsModule } from './components/views/views.module';
 import { DashboardModule } from './components/dashboard/dashboard.module';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -18,6 +19,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
   imports: [
     BrowserModule,
     HttpModule,
+    CoreModule,
     ViewsModule,
     DashboardModule,
     routes
