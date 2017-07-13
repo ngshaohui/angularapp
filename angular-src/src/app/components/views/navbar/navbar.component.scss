@@ -19,13 +19,16 @@
         }
     }
 
-    .nav-item:hover {
-        color: #000000;
-        background-color: #eeeeee;
-    }
+    .nav-item.dropdown.dropdown-parent {
+        cursor: pointer;
 
-    .nav-item:focus {
-        color: #000000;
-        background-color: #eeeeee;
+        .nav-link.dropdown-item:focus {
+            outline: none;
+        }
+
+        .nav-link.dropdown-item:active {
+            color: #000000;
+            background-color: #eeeeee;
+        }
     }
 }
