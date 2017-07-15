@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { QuillModule } from 'ngx-quill';
 
@@ -15,27 +15,29 @@ import { OverviewComponent } from './overview/overview.component';
 import { MediaComponent } from './media/media.component';
 
 import { PostService } from './post/post.service';
+import { PostsService } from './posts/posts.service';
 
 @NgModule({
-    imports: [
-        CommonModule, 
-        FormsModule, 
-        ReactiveFormsModule, 
-        QuillModule, 
-        DashboardRouter
-    ],
-    declarations: [
-        DashboardComponent, 
-        SidebarComponent, 
-        PostComponent, 
-        PostsComponent, 
-        OverviewComponent, 
-        MediaComponent
-    ],
-    exports: [],
-    providers: [
-        PostService
-    ]
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    QuillModule,
+    DashboardRouter
+  ],
+  declarations: [
+    DashboardComponent,
+    SidebarComponent,
+    PostComponent,
+    PostsComponent,
+    OverviewComponent,
+    MediaComponent
+  ],
+  exports: [],
+  providers: [
+    PostService,
+    PostsService
+  ]
 })
 
 export class DashboardModule { }

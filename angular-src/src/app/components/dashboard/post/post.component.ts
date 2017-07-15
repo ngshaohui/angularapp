@@ -35,7 +35,7 @@ export class PostComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private IdService: IdService,
+    private idService: IdService,
     private postService: PostService
   ) {
     this.editorContent = "";
@@ -75,7 +75,7 @@ export class PostComponent implements OnInit {
     this.editor.modules = this.customQuillToolbar; //load custom toolbar
     this.editor.placeholder = this.placeholderTexts[Math.floor(Math.random() * this.placeholderTexts.length)];
 
-    this.postId = this.IdService.generateUniqueId();
+    this.postId = this.idService.generateUniqueId();
     this.lastAutoSave = "Last autosave: Not yet";
   }
 
