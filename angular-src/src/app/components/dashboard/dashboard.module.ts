@@ -10,8 +10,11 @@ import { DashboardRouter } from './dashboard-router';
 import { DashboardComponent } from './dashboard.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { PostComponent } from './post/post.component';
+import { PostsComponent } from './posts/posts.component';
 import { OverviewComponent } from './overview/overview.component';
 import { MediaComponent } from './media/media.component';
+
+import { PostService } from './post/post.service';
 
 @NgModule({
     imports: [
@@ -25,11 +28,14 @@ import { MediaComponent } from './media/media.component';
         DashboardComponent, 
         SidebarComponent, 
         PostComponent, 
+        PostsComponent, 
         OverviewComponent, 
         MediaComponent
     ],
     exports: [],
-    providers: []
+    providers: [
+        PostService
+    ]
 })
 
 export class DashboardModule { }

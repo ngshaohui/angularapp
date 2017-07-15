@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { QuillEditorComponent } from 'ngx-quill/src/quill-editor.component';
 import "rxjs/add/operator/debounceTime";
 import 'rxjs/add/operator/distinctUntilChanged';
+import { IdService } from '../../core/services/id.service';
+
+import { PostService } from './post.service';
 
 import Post from '../../core/models/blogpost';
 
@@ -14,6 +17,7 @@ import Post from '../../core/models/blogpost';
 export class PostComponent implements OnInit {
   form: FormGroup;
   post: Post;
+  postId: string;
   lastAutoSave: string;
   postTitle: string;
   editorContent: string;
@@ -29,8 +33,11 @@ export class PostComponent implements OnInit {
   //this.placeholderTexts[Math.floor(Math.random() * this.placeholderTexts.length)]
   customQuillToolbar: any;
 
-  constructor(fb: FormBuilder) {
-    this.lastAutoSave = "Last autosave: Today 12.16pm";
+  constructor(
+    private fb: FormBuilder,
+    private IdService: IdService,
+    private postService: PostService
+  ) {
     this.editorContent = "";
     this.form = fb.group({
       editor: []
@@ -51,13 +58,14 @@ export class PostComponent implements OnInit {
 
         ['clean'],                                         // remove formatting button
 
-        ['link', 'image', 'video']                         // link and image, video
+        ['link', 'image']                         // link and image, video
       ]
     };
   }
   @ViewChild('editor') editor: QuillEditorComponent
 
   ngOnInit() {
+    //initialise quill editor
     this.editor
       .onContentChanged.debounceTime(800)
       .distinctUntilChanged()
@@ -66,18 +74,21 @@ export class PostComponent implements OnInit {
       });
     this.editor.modules = this.customQuillToolbar; //load custom toolbar
     this.editor.placeholder = this.placeholderTexts[Math.floor(Math.random() * this.placeholderTexts.length)];
+
+    this.postId = this.IdService.generateUniqueId();
+    this.lastAutoSave = "Last autosave: Not yet";
   }
 
   publishPost(): void {
     //validate form first
-    //extract image tags and host them onto db separately
   }
 
   //this should be in a service
-  private autoSave(): Date {
+  private autoSave(): void {
     console.log("autosaved");
     //do api call to server
-    return new Date();
+    let date = this.postService.savePost();
+    this.lastAutoSave = "Last autosave: " + date;
   }
 
 }

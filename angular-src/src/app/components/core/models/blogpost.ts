@@ -5,7 +5,7 @@ export default class Blogpost {
     content: string,
     created: Date,
     lastUpdated: Date,
-    tags?: string[]
+    tags: string[]
   ) {  }
 
 }

@@ -6,6 +6,8 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { FeatureReelComponent } from './components/feature-reel/feature-reel.component';
 import { BlogpostComponent } from './components/blogpost/blogpost.component';
 
+import { IdService } from './services/id.service';
+
 // Loading spinners
 import { BouncingLoaderComponent } from './components/loading/bouncing-loader/bouncing-loader.component';
 import { FadingSpinnerComponent } from './components/loading/fading-spinner/fading-spinner.component';
@@ -23,7 +25,9 @@ import { FadingSpinnerComponent } from './components/loading/fading-spinner/fadi
         FadingSpinnerComponent
     ],
     exports: [],
-    providers: []
+    providers: [
+        IdService
+    ]
 })
 
 export class CoreModule { }
