@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { PostsService } from './posts.service';
 
-import Blogpost from '../../core/models/blogpost';
+import { Blogpost } from '../../core/models/blogpost';
 
 @Component({
   selector: 'app-posts',
@@ -11,6 +11,7 @@ import Blogpost from '../../core/models/blogpost';
 })
 export class PostsComponent implements OnInit {
   posts: Blogpost[];
+  post: Blogpost;
 
   constructor(
     private postsService: PostsService
@@ -20,7 +21,7 @@ export class PostsComponent implements OnInit {
     this.postsService.getPosts()
     .then((posts: Blogpost[]) => {
       this.posts = posts;
-      console.log(this.posts);
+      this.post = posts[0];
     })
   }
 

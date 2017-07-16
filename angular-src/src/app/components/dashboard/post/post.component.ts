@@ -7,7 +7,7 @@ import { IdService } from '../../core/services/id.service';
 
 import { PostService } from './post.service';
 
-import Post from '../../core/models/blogpost';
+import { Blogpost } from '../../core/models/blogpost';
 
 @Component({
   selector: 'app-post',
@@ -16,7 +16,7 @@ import Post from '../../core/models/blogpost';
 })
 export class PostComponent implements OnInit {
   form: FormGroup;
-  post: Post;
+  blogpost: Blogpost;
   postId: string;
   lastAutoSave: string;
   postTitle: string;

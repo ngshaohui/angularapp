@@ -24,7 +24,11 @@ import { FadingSpinnerComponent } from './components/loading/fading-spinner/fadi
         BouncingLoaderComponent,
         FadingSpinnerComponent
     ],
-    exports: [],
+    exports: [
+        BlogpostComponent,
+        BouncingLoaderComponent,
+        FadingSpinnerComponent
+    ],
     providers: [
         IdService
     ]

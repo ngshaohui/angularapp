@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import Post from '../../core/models/blogpost';
+import { Blogpost } from '../../core/models/blogpost';
 
 import { POSTS } from '../../core/dummydata/dummy-posts';
 
@@ -9,12 +9,12 @@ export class PostService {
 
   constructor() { }
 
-  getPost(): Promise<Post> {
+  getPost(): Promise<Blogpost> {
     //do api call to server
     return Promise.resolve(POSTS[0]);
   }
 
-  getPosts(): Promise<Post[]> {
+  getPosts(): Promise<Blogpost[]> {
       return Promise.resolve(POSTS);
   }
 

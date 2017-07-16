@@ -1,17 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
-import Blogpost from '../../models/blogpost';
+import { Blogpost } from '../../models/blogpost';
 
 @Component({
-  selector: 'app-blogpost',
+  selector: 'blogpost',
   templateUrl: './blogpost.component.html',
   styleUrls: ['./blogpost.component.scss']
 })
 export class BlogpostComponent implements OnInit {
+  @Input()
+  blogpost: Blogpost;
 
-  constructor() { }
+  // blogpostContent: any;
+  post: any;
+
+  constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
+    // this.blogpostContent = this.sanitizer.bypassSecurityTrustStyle(this.blogpost.content);
+    // console.log(this.blogpostContent);
   }
 
 }

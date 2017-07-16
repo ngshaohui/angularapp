@@ -7,6 +7,8 @@ import { QuillModule } from 'ngx-quill';
 
 import { DashboardRouter } from './dashboard-router';
 
+import { CoreModule } from '../core/core.module';
+
 import { DashboardComponent } from './dashboard.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { PostComponent } from './post/post.component';
@@ -23,7 +25,8 @@ import { PostsService } from './posts/posts.service';
     FormsModule,
     ReactiveFormsModule,
     QuillModule,
-    DashboardRouter
+    DashboardRouter,
+    CoreModule
   ],
   declarations: [
     DashboardComponent,

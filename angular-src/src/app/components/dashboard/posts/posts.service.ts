@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import Blogpost from '../../core/models/blogpost';
+import { Blogpost } from '../../core/models/blogpost';
 
 import { POSTS } from '../../core/dummydata/dummy-posts';
 
@@ -13,6 +13,12 @@ export class PostsService {
   getPostsAPI(): Promise<Blogpost[]> {
       return new Promise(resolve => {
         setTimeout(() => resolve(POSTS), 2000);
+      });
+  }
+
+  getPostsInstant(): Promise<Blogpost[]> {
+      return new Promise(resolve => {
+        resolve(POSTS);
       });
   }
 

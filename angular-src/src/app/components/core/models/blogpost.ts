@@ -1,11 +1,10 @@
-export default class Blogpost {
+export class Blogpost {
 
-  constructor(
-    title: string,
-    content: string,
-    created: Date,
-    lastUpdated: Date,
-    tags: string[]
-  ) {  }
+  id: string;
+  title: string;
+  content: string;
+  created: string;
+  lastUpdated: string;
+  tags: string[];
 
 }
