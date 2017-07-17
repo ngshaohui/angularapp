@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Blogpost } from '../../core/models/blogpost';
 
-import { POSTS } from '../../core/dummydata/dummy-posts';
+import { COMPLETED_POSTS } from '../../core/dummydata/dummy-posts';
 
 @Injectable()
 export class PostService {
@@ -11,11 +11,11 @@ export class PostService {
 
   getPost(): Promise<Blogpost> {
     //do api call to server
-    return Promise.resolve(POSTS[0]);
+    return Promise.resolve(COMPLETED_POSTS[0]);
   }
 
   getPosts(): Promise<Blogpost[]> {
-      return Promise.resolve(POSTS);
+      return Promise.resolve(COMPLETED_POSTS);
   }
 
   savePost(): string {

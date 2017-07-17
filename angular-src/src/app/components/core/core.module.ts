@@ -8,6 +8,8 @@ import { BlogpostComponent } from './components/blogpost/blogpost.component';
 
 import { IdService } from './services/id.service';
 
+import { SafeHtmlPipe } from './pipes/sanitize-html.pipe';
+
 // Loading spinners
 import { BouncingLoaderComponent } from './components/loading/bouncing-loader/bouncing-loader.component';
 import { FadingSpinnerComponent } from './components/loading/fading-spinner/fading-spinner.component';
@@ -19,6 +21,7 @@ import { FadingSpinnerComponent } from './components/loading/fading-spinner/fadi
         ReactiveFormsModule
     ],
     declarations: [
+        SafeHtmlPipe,
         FeatureReelComponent,
         BlogpostComponent,
         BouncingLoaderComponent,

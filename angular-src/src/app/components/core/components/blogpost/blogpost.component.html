@@ -6,14 +6,14 @@
 
   <hr>
   {{blogpost.id}}
-  <div class="blogpost-body" [innerHTML]="blogpost.content">
+  <div class="blogpost-body" [innerHTML]="blogpost.content | safeHtml">
   </div>
 
   <br>
 
   <div class="blogpost-footer">
     <div class="blogpost-tags text-muted">
-      <span *ngFor="let tag of tags" class="blogpost-tag">tags</span>
+      <span *ngFor="let tag of blogpost.tags" class="blogpost-tag">{{tag}}</span>
     </div>
     <div class="blogpost-sharing">
       <br>

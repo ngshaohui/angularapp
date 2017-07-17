@@ -12,14 +12,7 @@ export class BlogpostComponent implements OnInit {
   @Input()
   blogpost: Blogpost;
 
-  // blogpostContent: any;
-  post: any;
-
-  constructor(private sanitizer: DomSanitizer) { }
-
   ngOnInit() {
-    // this.blogpostContent = this.sanitizer.bypassSecurityTrustStyle(this.blogpost.content);
-    // console.log(this.blogpostContent);
   }
 
 }

@@ -11,7 +11,6 @@ import { Blogpost } from '../../core/models/blogpost';
 })
 export class PostsComponent implements OnInit {
   posts: Blogpost[];
-  post: Blogpost;
 
   constructor(
     private postsService: PostsService
@@ -21,7 +20,6 @@ export class PostsComponent implements OnInit {
     this.postsService.getPosts()
     .then((posts: Blogpost[]) => {
       this.posts = posts;
-      this.post = posts[0];
     })
   }
 
