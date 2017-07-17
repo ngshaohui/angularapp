@@ -1,36 +1,35 @@
 .blogpost-container-wrapper {
-    .blogpost-title {
-        font-size: 3em;
+  .blogpost-title {
+    font-size: 3em;
+  }
+
+  /* Does not work! */
+  .blogpost-body {
+    .ql-size-small {
+      font-size: 0.75em;
     }
 
-    .blogpost-body {
-        flex-direction: column;
-
-        .font-size-small {
-            font-size: 0.8em;
-        }
-
-        .font-size-large {
-            font-size: 1.2em;
-        }
-
-        .font-size-huge {
-            font-size: 1.4em;
-        }
+    .ql-size-large {
+      font-size: 1.5em;
     }
 
-    .blogpost-footer {
-
-        .blogpost-sharing {
-            .share-button {
-                font-size: 2em;
-                cursor: pointer;
-            }
-
-            .share-button:focus {
-                box-shadow: none;
-                // outline: none;
-            }
-        }
+    .ql-size-huge {
+      font-size: 2.5em;
     }
+  }
+
+  .blogpost-footer {
+
+    .blogpost-sharing {
+      .share-button {
+        font-size: 2em;
+        cursor: pointer;
+      }
+
+      .share-button:focus {
+        box-shadow: none;
+        // outline: none;
+      }
+    }
+  }
 }
