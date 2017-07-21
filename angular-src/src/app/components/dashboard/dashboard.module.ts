@@ -11,12 +11,12 @@ import { CoreModule } from '../core/core.module';
 
 import { DashboardComponent } from './dashboard.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { PostComponent } from './post/post.component';
+import { CreatePostComponent } from './create-post/create-post.component';
 import { PostsComponent } from './posts/posts.component';
 import { OverviewComponent } from './overview/overview.component';
 import { MediaComponent } from './media/media.component';
 
-import { PostService } from './post/post.service';
+import { CreatePostService } from './create-post/create-post.service';
 import { PostsService } from './posts/posts.service';
 
 @NgModule({
@@ -31,14 +31,14 @@ import { PostsService } from './posts/posts.service';
   declarations: [
     DashboardComponent,
     SidebarComponent,
-    PostComponent,
+    CreatePostComponent,
     PostsComponent,
     OverviewComponent,
     MediaComponent
   ],
   exports: [],
   providers: [
-    PostService,
+    CreatePostService,
     PostsService
   ]
 })

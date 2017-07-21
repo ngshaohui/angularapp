@@ -5,16 +5,16 @@ import "rxjs/add/operator/debounceTime";
 import 'rxjs/add/operator/distinctUntilChanged';
 import { IdService } from '../../core/services/id.service';
 
-import { PostService } from './post.service';
+import { CreatePostService } from './create-post.service';
 
 import { Blogpost } from '../../core/models/blogpost';
 
 @Component({
-  selector: 'app-post',
-  templateUrl: './post.component.html',
-  styleUrls: ['./post.component.scss']
+  selector: 'create-post',
+  templateUrl: './create-post.component.html',
+  styleUrls: ['./create-post.component.scss']
 })
-export class PostComponent implements OnInit {
+export class CreatePostComponent implements OnInit {
   form: FormGroup;
   blogpost: Blogpost;
   postId: string;
@@ -36,7 +36,7 @@ export class PostComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private idService: IdService,
-    private postService: PostService
+    private createPostService: CreatePostService
   ) {
     this.editorContent = "";
     this.form = fb.group({
@@ -51,8 +51,6 @@ export class PostComponent implements OnInit {
         [{ 'header': 1 }, { 'header': 2 }],               // custom button values
 
         [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-
-        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
 
         [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
 
@@ -87,7 +85,7 @@ export class PostComponent implements OnInit {
   private autoSave(): void {
     console.log("autosaved");
     //do api call to server
-    let date = this.postService.savePost();
+    let date = this.createPostService.savePost();
     this.lastAutoSave = "Last autosave: " + date;
   }
 

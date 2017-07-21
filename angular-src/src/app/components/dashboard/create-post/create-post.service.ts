@@ -5,7 +5,7 @@ import { Blogpost } from '../../core/models/blogpost';
 import { COMPLETED_POSTS } from '../../core/dummydata/dummy-posts';
 
 @Injectable()
-export class PostService {
+export class CreatePostService {
 
   constructor() { }
 
@@ -20,6 +20,10 @@ export class PostService {
 
   savePost(): string {
       return new Date().toLocaleString('en-US');
+  }
+
+  publishPost() {
+    ;
   }
 
 }

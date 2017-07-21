@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { PostComponent } from './post/post.component';
+import { CreatePostComponent } from './create-post/create-post.component';
 import { PostsComponent } from './posts/posts.component';
 import { OverviewComponent } from './overview/overview.component';
 import { MediaComponent } from './media/media.component';
@@ -14,7 +14,7 @@ const viewsRoutes: Routes = [
         component: DashboardComponent,
         children: [
             { path: '', component: OverviewComponent },
-            { path: 'post', component: PostComponent },
+            { path: 'post', component: CreatePostComponent },
             { path: 'posts', component: PostsComponent },
             { path: 'media', component: MediaComponent }
         ]

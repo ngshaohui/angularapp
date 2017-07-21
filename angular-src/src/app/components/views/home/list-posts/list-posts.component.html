@@ -1,0 +1,4 @@
+<bouncing-loader *ngIf="!posts"></bouncing-loader>
+<div *ngIf="posts">
+  <blogpost *ngFor="let post of posts" [blogpost]="post"></blogpost>
+</div>

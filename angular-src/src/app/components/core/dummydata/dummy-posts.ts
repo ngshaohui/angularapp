@@ -12,7 +12,7 @@ export const COMPLETED_POSTS: Blogpost[] = [
     {
         id: "AGo3WC2",
         title: "Second Post",
-        content: '<p>A horse, a horse!</p><p>My <span style="color: rgb(230, 0, 0);">kingdom</span> for a horse!</p>',
+        content: '<p>A horse, a horse!</p><p>My <span style="color: rgb(230, 0, 0);">kingdom</span> for a horse!</p><h1>asdasdas</h1><h2>asdasdasdsad</h2><p>asdasdasda</p>',
         created: Date(),
         lastUpdated: Date(),
         tags: ['second']
