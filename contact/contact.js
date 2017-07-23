@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var nodemailer = require('nodemailer');
 
-router.post('/send', function (req, res, next) {
-  var message = "Message from:\n\n" + req.body.name + "\n\n\n";
-  message += 'Email address:\n\n' + req.body.email + "\n\n\n";
-  message += 'Message:\n\n' + req.body.message + "\n\n\n";
+// returns an object containing the success status and response
+function sendMail(body) {
+  var message = "Message from:\n\n" + body.name + "\n\n\n";
+  message += 'Email address:\n\n' + body.email + "\n\n\n";
+  message += 'Message:\n\n' + body.message + "\n\n\n";
 
   var transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -25,19 +25,17 @@ router.post('/send', function (req, res, next) {
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
       console.log(error);
-      res.json({
+      return {
         success: false,
         status: info.response
-      });
+      }
     } else {
       console.log('Message sent: ' + info.response);
-      res.json({
+      return {
         success: true,
         status: info.response
-      });
-    };
+      }
+    }
   });
 
-});
-
-module.exports = router;
+}

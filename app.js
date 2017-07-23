@@ -7,14 +7,14 @@ var app = express();
 
 var port = process.env.PORT || 3000;
 
-var mail = require('./routes/mail');
-var posts = require('./routes/posts');
+var contact = require('./contact/contact');
+var posts = require('./contact/posts');
 
 //Set Static Folder
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.use('/api', posts);
-app.use('/mail', mail);
+app.use('/contact', contact);
 
 //Body Parser Middleware
 app.use(bodyParser.json());
