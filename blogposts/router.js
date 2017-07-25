@@ -1,10 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var db = 'mongodb://shinlos:d96pmsag@ds153652.mlab.com:53652/blog';
 var Blogpost = require('./blogpost-model');
-
-mongoose.connect(db);
 
 //create new blogpost
 router.post('/posts', function (req, res, next) {
