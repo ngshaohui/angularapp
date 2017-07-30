@@ -19,11 +19,13 @@ var port = process.env.PORT || 3000;
 
 var contact = require('./contact/router');
 var blogposts = require('./blogposts/router');
+var users = require('./users/router');
 
 //Set Static Folder
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.use('/api', blogposts);
+app.use('/auth', users);
 app.use('/contact', contact);
 
 //Start server

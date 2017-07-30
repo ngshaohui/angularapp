@@ -1,21 +1,26 @@
 var express = require('express');
 var router = express.Router();
-var User = require('./user.js');
+var User = require('./user-model.js');
+var helper = require('./helper.js');
 
 router.post('/register', function(req, res, next) {
     var newUser = new User();
-    newUser.name = req.body.name;
-    newUser.password = User.hashPassword(req.body.password);
+    newUser.username = req.body.username;
     newUser.admin = req.body.admin;
 
-    newUser.save(function(err, user) {
-        if (err) {
-            res.sendStatus(400);
-            res.send(err);
-        } else {
-            console.log(user);
-            res.sendStatus(200);
-        }
+    helper.hashPassword(req.body.password).then(function(hashedPassword) {
+        newUser.password = hashedPassword;
+        console.log(hashedPassword);
+
+        newUser.save(function(err, user) {
+            if (err) {
+                res.sendStatus(400);
+                res.send(err);
+            } else {
+                console.log(user);
+                res.sendStatus(200);
+            }
+        });
     });
 });
 
@@ -29,7 +34,7 @@ router.get('/login', function(req, res, next) {
             res.send(err);
         } else {
             //check password
-            if (User.checkPassword(req.body.password, user.password)) {
+            if (helper.checkPassword(req.body.password, user.password)) {
                 console.log("SUCCESS");
                 res.sendStatus(200);
             } else {

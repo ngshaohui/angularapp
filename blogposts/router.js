@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Blogpost = require('./blogpost-model');
+var blogpostSchema = require('./blogpost-model');
+var Blogpost = mongoose.model('Blogpost', blogpostSchema);
+var BlogpostDraft = mongoose.model('BlogpostDraft', blogpostSchema);
 
 //create new blogpost
 router.post('/posts', function (req, res, next) {
