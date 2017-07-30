@@ -3,7 +3,6 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
-var nodemailer = require('nodemailer');
 
 var config = require('./config');
 

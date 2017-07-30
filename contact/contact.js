@@ -1,6 +1,7 @@
 var express = require('express');
-var router = express.Router();
+var nodemailer = require('nodemailer');
 
+// TODO add template for the email
 // returns an object containing the success status and response
 function sendMail(body) {
   var message = "Message from:\n\n" + body.name + "\n\n\n";
@@ -37,5 +38,8 @@ function sendMail(body) {
       }
     }
   });
+}
 
+module.exports = {
+  sendMail
 }

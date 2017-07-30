@@ -1,11 +1,13 @@
 var bcrypt = require('bcryptjs');
 const SALT_ROUNDS = 12;
 
+/* 
+ * returns a promise of the password hash
+ */
 function hashPassword(password) {
     return new Promise(function(resolve, reject) {
         bcrypt.hash(password, SALT_ROUNDS, function(err, hash) {
             if (err) {
-                console.warn("Something went wrong when encrypting the password");
                 return reject(err);
             } else {
                 return resolve(hash);
@@ -14,11 +16,13 @@ function hashPassword(password) {
     });
 }
 
+/*
+ * returns a boolean for the status of the password comparison
+ */
 function checkPassword(password, hash) {
     return new Promise(function(resolve, reject) {
         bcrypt.compare(password, hash, function(err, res) {
             if (err) {
-                console.warn("Something went wrong when comparing the password");
                 return reject(err);
             } else {
                 return resolve(res);

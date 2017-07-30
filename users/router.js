@@ -26,7 +26,7 @@ router.post('/register', function(req, res, next) {
     });
 });
 
-router.get('/login', function(req, res, next) {
+router.post('/login', function(req, res, next) {
     User.findOne({
         username: req.body.username
     })
@@ -36,13 +36,16 @@ router.get('/login', function(req, res, next) {
             res.send(err);
         } else {
             //check password
-            if (helper.checkPassword(req.body.password, user.password)) {
+            helper.checkPassword(req.body.password, user.password)
+            .then(function() {
                 console.log("SUCCESS");
                 res.sendStatus(200);
-            } else {
+                //send jsonwebtoken
+            })
+            .catch(function() {
                 console.log("FAILURE");
                 res.sendStatus(200);
-            }
+            });
         }
     });
 });

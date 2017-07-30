@@ -5,10 +5,10 @@ var blogpostSchema = require('./blogpost-model');
 var Blogpost = mongoose.model('Blogpost', blogpostSchema);
 var BlogpostDraft = mongoose.model('BlogpostDraft', blogpostSchema);
 
-//create new blogpost
+// Create new blogpost
 router.post('/posts', function (req, res, next) {
     var newBlogpost = new Blogpost();
-    newBlogpost.postId = req.body.postId;
+    newBlogpost._id = req.body.postId;
     newBlogpost.title = req.body.title;
     newBlogpost.content = req.body.content;
     // newBlogpost.date = req.body.date;
@@ -27,20 +27,46 @@ router.post('/posts', function (req, res, next) {
     });
 });
 
+// Update blogpost
 router.patch('/posts/:id', function(req, res, next) {
-    //TODO
+    Blogpost.findById(req.params.id, function(err, blogpost) {
+        if (err) {
+            res.send(err);
+        } else {
+            // update each possible attribute
+            blogpost._id = req.body._id || blogpost._id;
+            blogpost.title = req.body.title || blogpost.title;
+            blogpost.content = req.body.content || blogpost.content;
+
+            blogpost.save(function (err, blogpost) {
+                if (err) {
+                    res.sendStatus(400);
+                    res.send(err);
+                } else {
+                    console.log(blogpost);
+                    res.sendStatus(200);
+                }
+            });
+        }
+    });
 });
 
+// Delete blogpost
 router.delete('/posts/:id', function(req, res, next) {
-    //TODO
+    Blogpost.findByIdAndRemove(req.params.id, function(err, blogpost) {
+        if (err) {
+            res.sendStatus(400);
+            res.send(err);
+        } else {
+            console.log(blogpost);
+            res.sendStatus(200);
+        }
+    });
 });
 
-//get post by ID
+// Get post by ID
 router.get('/posts/:id', function(req, res, next) {
-    Blogpost.findOne({
-        id: req.params.id
-    })
-    .exec(function(err, blogpost) {
+    Blogpost.findById(req.params.id, function(err, blogpost) {
         if (err) {
             res.send(err);
         } else {
@@ -50,5 +76,7 @@ router.get('/posts/:id', function(req, res, next) {
 });
 
 //get post by month
+
+//get posts in date range
 
 module.exports = router;
