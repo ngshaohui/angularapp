@@ -15,12 +15,15 @@ function hashPassword(password) {
 }
 
 function checkPassword(password, hash) {
-    bcrypt.compare(password, hash, function(err, res) {
-        if (err) {
-            console.warn("Something went wrong when comparing the password");
-        } else {
-            return res;
-        }
+    return new Promise(function(resolve, reject) {
+        bcrypt.compare(password, hash, function(err, res) {
+            if (err) {
+                console.warn("Something went wrong when comparing the password");
+                return reject(err);
+            } else {
+                return resolve(res);
+            }
+        });
     });
 }
 

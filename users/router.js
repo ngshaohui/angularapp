@@ -8,9 +8,9 @@ router.post('/register', function(req, res, next) {
     newUser.username = req.body.username;
     newUser.admin = req.body.admin;
 
-    helper.hashPassword(req.body.password).then(function(hashedPassword) {
+    helper.hashPassword(req.body.password)
+    .then(function(hashedPassword) {
         newUser.password = hashedPassword;
-        console.log(hashedPassword);
 
         newUser.save(function(err, user) {
             if (err) {
@@ -21,6 +21,8 @@ router.post('/register', function(req, res, next) {
                 res.sendStatus(200);
             }
         });
+    }).catch(function(err){
+        console.log(err);
     });
 });
 
