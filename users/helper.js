@@ -1,4 +1,5 @@
 var bcrypt = require('bcryptjs');
+var config = require('../config.js');
 const SALT_ROUNDS = 12;
 
 /* 
@@ -17,7 +18,7 @@ function hashPassword(password) {
 }
 
 /*
- * returns a boolean for the status of the password comparison
+ * returns a promise of the a boolean for the status of the password comparison
  */
 function checkPassword(password, hash) {
     return new Promise(function(resolve, reject) {
@@ -26,6 +27,18 @@ function checkPassword(password, hash) {
                 return reject(err);
             } else {
                 return resolve(res);
+            }
+        });
+    });
+}
+
+function verifyJwt(token) {
+    return new Promise(function(resolve, reject) {
+        jwt.verify(token, config.secret, function(err, decoded) {
+            if (err) {
+                return reject(err);
+            } else {
+                return resolve(decoded);
             }
         });
     });
