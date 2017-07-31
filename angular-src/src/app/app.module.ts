@@ -9,12 +9,16 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './components/core/core.module';
 import { ViewsModule } from './components/views/views.module';
 import { DashboardModule } from './components/dashboard/dashboard.module';
+import { AuthModule } from './components/auth/auth.module';
+
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { AuthComponent } from './components/auth/auth.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
@@ -22,6 +26,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     CoreModule,
     ViewsModule,
     DashboardModule,
+    AuthModule,
     routes
   ],
   providers: [],
