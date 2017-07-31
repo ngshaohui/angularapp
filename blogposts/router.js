@@ -76,6 +76,18 @@ router.get('/posts/:id', function(req, res, next) {
 });
 
 //get post by month
+router.post('/posts/:id', function(req, res, next) {
+    Blogpost.find({
+        date_published: new Date(req.body.date)
+    })
+    .exec(function(err, blogpost) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.json(blogpost);
+        }
+    });
+});
 
 //get posts in date range
 
