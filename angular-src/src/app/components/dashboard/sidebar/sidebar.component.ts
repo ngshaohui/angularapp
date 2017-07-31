@@ -24,7 +24,6 @@ export class SidebarComponent implements OnInit {
 
   toggleSidebar(): void {
     this.sidebarVisible = !this.sidebarVisible;
-    console.log(`toggle sidebar visibility to ${this.sidebarVisible}`)
   }
 
   toggleSidebarState(): void {
@@ -33,7 +32,6 @@ export class SidebarComponent implements OnInit {
     } else {
       this.sidebarState = "expand";
     }
-    console.log(`toggle sidebar state to ${this.sidebarState}`)
   }
 
 }
