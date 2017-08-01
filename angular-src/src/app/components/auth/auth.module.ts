@@ -7,6 +7,8 @@ import { AuthRouter } from './auth-router';
 
 import { LoginComponent } from './login/login.component';
 
+import { AuthService } from './auth.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -18,6 +20,7 @@ import { LoginComponent } from './login/login.component';
   ],
   exports: [],
   providers: [
+    AuthService
   ]
 })
 

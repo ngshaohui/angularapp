@@ -5,39 +5,37 @@ import 'rxjs/add/operator/toPromise';
 
 
 const AuthRoutes = {
-    login: "/login"
+    login: "/auth/login"
 }
 
 @Injectable()
-export class PostsService {
+export class AuthService {
 
     constructor(
         private http: Http
     ) { }
 
-    //   //simulate API call to server
-    //   getPostsAPI(): Promise<Blogpost[]> {
-    //       return new Promise(resolve => {
-    //         setTimeout(() => resolve(COMPLETED_POSTS), 2000);
-    //       });
-    //   }
-
-    //   getPostsInstant(): Promise<Blogpost[]> {
-    //       return new Promise(resolve => {
-    //         resolve(COMPLETED_POSTS);
-    //       });
-    //   }
-
-    //   getPosts(): Promise<Blogpost[]> {
-    //     return this.getPostsAPI(); //stub
-    //   }
-
-    sendForm(form) {
+    //TODO specify the interface of the promise being returned
+    login(form): Promise<any> {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
+        let credentials = {
+            username: form.username,
+            password: form.password
+        }
 
-        return this.http.post(AuthRoutes.login, form,
-            { headers: headers }).map(res => res.json());
+        return new Promise((resolve, reject) => {
+            this.http
+            .post(AuthRoutes.login, credentials, { headers: headers })
+            .subscribe(
+                data => {
+                    resolve(data.json());
+                },
+                err => {
+                    reject(err);
+                }
+            );
+        });
     }
 
 }
