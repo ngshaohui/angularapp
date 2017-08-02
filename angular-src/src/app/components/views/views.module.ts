@@ -11,7 +11,7 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { ProductsComponent } from './products/products.component';
 
-import { ContactService } from './services/contact.service';
+import { ContactService } from './contact/contact.service';
 
 import { ViewsRouter } from './views-router';
 import { FooterComponent } from './footer/footer.component';
