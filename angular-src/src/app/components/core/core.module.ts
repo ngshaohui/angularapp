@@ -13,6 +13,7 @@ import { SafeHtmlPipe } from './pipes/sanitize-html.pipe';
 // Loading spinners
 import { BouncingLoaderComponent } from './components/loading/bouncing-loader/bouncing-loader.component';
 import { FadingSpinnerComponent } from './components/loading/fading-spinner/fading-spinner.component';
+import { CondensedBlogpostComponent } from './components/condensed-blogpost/condensed-blogpost.component';
 
 @NgModule({
     imports: [
@@ -25,7 +26,8 @@ import { FadingSpinnerComponent } from './components/loading/fading-spinner/fadi
         FeatureReelComponent,
         BlogpostComponent,
         BouncingLoaderComponent,
-        FadingSpinnerComponent
+        FadingSpinnerComponent,
+        CondensedBlogpostComponent
     ],
     exports: [
         BlogpostComponent,
