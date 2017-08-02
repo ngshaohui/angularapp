@@ -16,6 +16,7 @@ import { PostsComponent } from './posts/posts.component';
 import { OverviewComponent } from './overview/overview.component';
 import { MediaComponent } from './media/media.component';
 
+import { AuthGuard } from '../../guards/auth.guard';
 import { CreatePostService } from './create-post/create-post.service';
 import { PostsService } from './posts/posts.service';
 
@@ -38,6 +39,7 @@ import { PostsService } from './posts/posts.service';
   ],
   exports: [],
   providers: [
+    AuthGuard,
     CreatePostService,
     PostsService
   ]

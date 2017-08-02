@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
+import { tokenNotExpired } from 'angular2-jwt';
 
 const AuthRoutes = {
-    login: "/auth/login"
+    login: "http://localhost:3000/auth/login"
 }
 
 @Injectable()
 export class AuthService {
+    authToken: string;
 
     constructor(
         private http: Http
@@ -36,6 +37,20 @@ export class AuthService {
                 }
             );
         });
+    }
+
+    isLoggedIn(): boolean {
+        return tokenNotExpired('id_token');
+    }
+
+    storeUserData(token): void {
+        localStorage.setItem('id_token', token);
+        this.authToken = token;
+    }
+
+    logout(): void {
+        localStorage.clear();
+        this.authToken = null;
     }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from "@angular/forms";
+import { Router } from '@angular/router';
 
 import { AuthService } from '../auth.service';
 
@@ -9,10 +10,11 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  form: Object;
+  form: any;
   formHasError: boolean;
 
   constructor(
+    private router: Router,
     private authService: AuthService
   ) { }
 
@@ -24,10 +26,14 @@ export class LoginComponent implements OnInit {
   submitForm() {
     this.authService.login(this.form)
     .then((res) => {
-      console.log(res);
-      //TODO check login status
-      //if fail, set formHasError boolean
-      //else if success save jsonwebtoken and redirect user to dashboard
+      if (res.success) {
+        let token = res.token;
+        localStorage.setItem('id_token', token)
+        this.authService.storeUserData(token);
+        this.router.navigate(['/dashboard']);
+      } else {
+        this.formHasError = true;
+      }
     })
     .catch((res) => {
       console.log(res);
