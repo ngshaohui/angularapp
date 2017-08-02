@@ -1,52 +1,53 @@
-<nav class="navbar navbar-toggleable-md navbar-default">
-  <div class="container">
-    <div class="navbar-header">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#appNavbar" aria-controls="appNavbar"
-        aria-expanded="false" aria-label="Toggle navigation">
+<div class="navbar-component-wrapper">
+  <nav class="navbar navbar-toggleable-md navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#appNavbar" aria-controls="appNavbar"
+          aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand">Shop Name</a>
-    </div>
-    <div class="collapse navbar-collapse" id="appNavbar">
-      <!--navbar left-->
-      <ul class="nav navbar-nav mr-auto">
-        <!--home-->
-        <li [routerLinkActive]="['nav-link-active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
-          <a [routerLink]="['/']" class="nav-link">
+        <a class="navbar-brand">Shop Name</a>
+      </div>
+      <div class="collapse navbar-collapse" id="appNavbar">
+        <!--navbar left-->
+        <ul class="nav navbar-nav mr-auto">
+          <!--home-->
+          <li [routerLinkActive]="['nav-link-active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
+            <a [routerLink]="['/']" class="nav-link">
             <i class="fa fa-home fa-lg"></i> Home
           </a>
-        </li>
-        <li class="nav-item dropdown dropdown-parent" [routerLinkActive]="['nav-link-active']" [routerLinkActiveOptions]="{exact:true}">
-          <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">Dropdown</a>
-          <div class="dropdown-menu" aria-labelledby="dropdown01" [routerLinkActive]="['nav-link-active']" [routerLinkActiveOptions]="{exact:true}">
-            <a [routerLink]="['/dashboard']" class="dropdown-item nav-link">Dashboard</a>
-            <a [routerLink]="['/featurereel']" class="dropdown-item nav-link">Feature Reel</a>
-            <a [routerLink]="['/auth/login']" class="dropdown-item nav-link">Login</a>
-          </div>
-        </li>
-      </ul>
-      <!--/navbar left-->
-      <!--navbar right-->
-      <ul class="nav navbar-nav">
-        <!--products-->
-        <li [routerLinkActive]="['nav-link-active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
-          <a [routerLink]="['/products']" class="nav-link">
+          </li>
+          <li class="nav-item dropdown dropdown-parent" [routerLinkActive]="['nav-link-active']" [routerLinkActiveOptions]="{exact:true}">
+            <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01" [routerLinkActive]="['nav-link-active']" [routerLinkActiveOptions]="{exact:true}">
+              <a [routerLink]="['/dashboard']" class="dropdown-item nav-link">Dashboard</a>
+              <a [routerLink]="['/featurereel']" class="dropdown-item nav-link">Feature Reel</a>
+              <a [routerLink]="['/auth/login']" class="dropdown-item nav-link">Login</a>
+            </div>
+          </li>
+        </ul>
+        <!--/navbar left-->
+        <!--navbar right-->
+        <ul class="nav navbar-nav">
+          <!--products-->
+          <li [routerLinkActive]="['nav-link-active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
+            <a [routerLink]="['/products']" class="nav-link">
             <i class="fa fa-shopping-cart fa-lg"></i> Products
           </a>
-        </li>
-        <!--clients-->
-        <li [routerLinkActive]="['nav-link-active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
-          <a [routerLink]="['/about']" class="nav-link">
+          </li>
+          <!--clients-->
+          <li [routerLinkActive]="['nav-link-active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
+            <a [routerLink]="['/about']" class="nav-link">
             <i class="	fa fa-users fa-lg"></i> Past Clients</a>
-        </li>
-        <!--contact-->
-        <li [routerLinkActive]="['nav-link-active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
-          <a [routerLink]="['/contact']" class="nav-link">
+          </li>
+          <!--contact-->
+          <li [routerLinkActive]="['nav-link-active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
+            <a [routerLink]="['/contact']" class="nav-link">
             <i class="fa fa-phone fa-lg"></i> Contact Us</a>
-        </li>
-      </ul>
-      <!--/navbar right-->
+          </li>
+        </ul>
+        <!--/navbar right-->
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</div>

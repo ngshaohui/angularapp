@@ -1,7 +1,9 @@
-.products-featurette-container {
+.products-component-wrapper {
+  .products-featurette-container {
     .row.featurette:nth-of-type(even) {
-        .featurette-text-container {
-                order: 2;
-        }
+      .featurette-text-container {
+        order: 2;
+      }
     }
+  }
 }

@@ -1,4 +1,5 @@
-.navbar {
+.navbar-component-wrapper {
+  .navbar {
     font-weight: 700;
     font-family: 'News Cycle';
     border-bottom: 1px solid #eeeeee;
@@ -6,29 +7,30 @@
     margin-bottom: 20px;
 
     .nav-link {
-        color: #000000;
-        padding: 1rem 1rem;
+      color: #000000;
+      padding: 1rem 1rem;
     }
 
     .nav-link-active {
-        color: #000000;
-        background-color: #eeeeee;
+      color: #000000;
+      background-color: #eeeeee;
 
-        a {
-            cursor: default;
-        }
+      a {
+        cursor: default;
+      }
     }
 
     .nav-item.dropdown.dropdown-parent {
-        cursor: pointer;
+      cursor: pointer;
 
-        .nav-link.dropdown-item:focus {
-            outline: none;
-        }
+      .nav-link.dropdown-item:focus {
+        outline: none;
+      }
 
-        .nav-link.dropdown-item:active {
-            color: #000000;
-            background-color: #eeeeee;
-        }
+      .nav-link.dropdown-item:active {
+        color: #000000;
+        background-color: #eeeeee;
+      }
     }
+  }
 }
