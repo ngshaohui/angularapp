@@ -14,6 +14,7 @@ import { ProductsComponent } from './products/products.component';
 import { ContactService } from './services/contact.service';
 
 import { ViewsRouter } from './views-router';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
     imports: [
@@ -28,7 +29,7 @@ import { ViewsRouter } from './views-router';
         NavbarComponent, 
         AboutComponent, 
         ContactComponent, 
-        ProductsComponent
+        ProductsComponent, FooterComponent
     ],
     exports: [],
     providers: [ContactService]

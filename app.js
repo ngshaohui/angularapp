@@ -7,6 +7,13 @@ var config = require('./config');
 
 var app = express();
 
+// Cors middleware
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 mongoose.connect(config.database, {
   useMongoClient: true
 });
