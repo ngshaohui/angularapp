@@ -14,7 +14,7 @@ const viewsRoutes: Routes = [
     {
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         children: [
             { path: '', component: OverviewComponent },
             { path: 'post', component: CreatePostComponent },

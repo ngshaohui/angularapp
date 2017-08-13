@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+import { Blogpost } from '../../models/blogpost';
 
 @Component({
   selector: 'app-condensed-blogpost',
@@ -6,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./condensed-blogpost.component.scss']
 })
 export class CondensedBlogpostComponent implements OnInit {
+
+  @Input()
+  blogpost: Blogpost;
 
   constructor() { }
 
