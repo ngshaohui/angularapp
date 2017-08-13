@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FeatureReelComponent } from './components/feature-reel/feature-reel.component';
 import { BlogpostComponent } from './components/blogpost/blogpost.component';
 
 import { IdService } from './services/id.service';
+import { PostService } from './services/post.service';
 
 import { SafeHtmlPipe } from './pipes/sanitize-html.pipe';
 
@@ -17,8 +18,8 @@ import { CondensedBlogpostComponent } from './components/condensed-blogpost/cond
 
 @NgModule({
     imports: [
-        CommonModule, 
-        FormsModule, 
+        CommonModule,
+        FormsModule,
         ReactiveFormsModule
     ],
     declarations: [
@@ -35,7 +36,8 @@ import { CondensedBlogpostComponent } from './components/condensed-blogpost/cond
         FadingSpinnerComponent
     ],
     providers: [
-        IdService
+        IdService,
+        PostService
     ]
 })
 

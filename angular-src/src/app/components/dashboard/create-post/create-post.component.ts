@@ -5,6 +5,7 @@ import "rxjs/add/operator/debounceTime";
 import 'rxjs/add/operator/distinctUntilChanged';
 import { IdService } from '../../core/services/id.service';
 
+import { PostService } from '../../core/services/post.service';
 import { CreatePostService } from './create-post.service';
 
 import { Blogpost } from '../../core/models/blogpost';
@@ -20,7 +21,7 @@ export class CreatePostComponent implements OnInit {
   postId: string;
   lastAutoSave: string;
   postTitle: string;
-  editorContent: string;
+  postCreated: string;
   placeholderTexts = [
     "The course of true love never did run smooth.",
     // "Love looks not with the eyes but with the mind.\nAnd therefore is winged Cupid painted blind.",
@@ -36,9 +37,11 @@ export class CreatePostComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private idService: IdService,
+    private postService: PostService,
     private createPostService: CreatePostService
   ) {
-    this.editorContent = "";
+    this.postTitle = "";
+    this.postCreated = new Date().toLocaleString('en-US');
     this.form = fb.group({
       editor: []
     });
@@ -78,14 +81,21 @@ export class CreatePostComponent implements OnInit {
   }
 
   publishPost(): void {
-    //validate form first
+    //TODO force save the form
+    let blogpost = new Blogpost();
+    blogpost.title = this.postTitle;
+    blogpost.content = this.form.controls.editor.value;
+    blogpost.id = this.postId;
+    blogpost.created = this.postCreated;
+
+    this.postService.publishPost(blogpost);
   }
 
   //this should be in a service
   private autoSave(): void {
     console.log("autosaved");
     //do api call to server
-    let date = this.createPostService.savePost();
+    let date = this.postService.savePost();
     this.lastAutoSave = "Last autosave: " + date;
   }
 

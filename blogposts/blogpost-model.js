@@ -5,10 +5,7 @@ var blogpostSchema = new Schema({
   _id: String,
   title: String,
   content: String,
-  // date: { 
-  //   type: Date, 
-  //   default: Date.now 
-  // },
+  created: String
   // published: Boolean,
   // hidden: Boolean,
   // meta: {

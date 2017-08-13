@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
@@ -15,6 +15,12 @@ export class AuthService {
     constructor(
         private http: Http
     ) { }
+
+    ngOnInit() {
+        this.authToken = localStorage.getItem('id_token');
+        console.log("Authorization token is ");
+        console.log(this.authToken);
+    }
 
     //TODO specify the interface of the promise being returned
     login(form): Promise<any> {
@@ -37,6 +43,10 @@ export class AuthService {
                 }
             );
         });
+    }
+
+    getToken(): string {
+        return localStorage.getItem('id_token');
     }
 
     isLoggedIn(): boolean {

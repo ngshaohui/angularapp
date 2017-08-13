@@ -4,7 +4,7 @@ export class Blogpost {
   title: string;
   content: string;
   created: string;
-  lastUpdated: string;
-  tags: string[];
+  // lastUpdated: string;
+  // tags: string[];
 
 }
