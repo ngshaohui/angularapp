@@ -5,7 +5,9 @@ var blogpostSchema = new Schema({
   _id: String,
   title: String,
   content: String,
-  created: String
+  created: String,
+  lastUpdated: String,
+  tags: [String]
   // published: Boolean,
   // hidden: Boolean,
   // meta: {

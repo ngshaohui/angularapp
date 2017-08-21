@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { QuillModule } from 'ngx-quill';
+
 import { FeatureReelComponent } from './components/feature-reel/feature-reel.component';
 import { BlogpostComponent } from './components/blogpost/blogpost.component';
 
@@ -15,12 +17,14 @@ import { SafeHtmlPipe } from './pipes/sanitize-html.pipe';
 import { BouncingLoaderComponent } from './components/loading/bouncing-loader/bouncing-loader.component';
 import { FadingSpinnerComponent } from './components/loading/fading-spinner/fading-spinner.component';
 import { CondensedBlogpostComponent } from './components/condensed-blogpost/condensed-blogpost.component';
+import { WysiwygComponent } from './components/wysiwyg/wysiwyg.component';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        QuillModule
     ],
     declarations: [
         SafeHtmlPipe,
@@ -28,12 +32,14 @@ import { CondensedBlogpostComponent } from './components/condensed-blogpost/cond
         BlogpostComponent,
         BouncingLoaderComponent,
         FadingSpinnerComponent,
-        CondensedBlogpostComponent
+        CondensedBlogpostComponent,
+        WysiwygComponent
     ],
     exports: [
         BlogpostComponent,
         BouncingLoaderComponent,
-        FadingSpinnerComponent
+        FadingSpinnerComponent,
+        WysiwygComponent
     ],
     providers: [
         IdService,
