@@ -1,3 +1,5 @@
 <div class="dashboard-create-post-conponent-container">
-    <wysiwyg-editor [blogpostId]="postId"></wysiwyg-editor>
+    <div *ngIf="postId">
+        <wysiwyg-editor [blogpostId]="postId"></wysiwyg-editor>
+    </div>
 </div>

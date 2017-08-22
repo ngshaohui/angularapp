@@ -68,32 +68,40 @@ export class WysiwygComponent implements OnInit {
   @ViewChild('editor') editor: QuillEditorComponent
 
   ngOnInit() {
-    //initialise quill editor
-    console.log(this.editor);
-    this.editor
+    this.postService.getBlogpost(this.blogpostId)
+    .then((blogpost: Blogpost) => {
+      // this.blogpost = blogpost;
+      // console.log(this.blogpost);
+      this.blogpost = new Blogpost;
+      console.log("APSODJPAOSJD");
+      console.log(blogpost);
+      this.blogpost.id = this.blogpostId;
+
+      if (!blogpost.lastAutosaved) {
+        // TODO
+      }
+
+    })
+    .catch((res: any) => {
+      // TODO handle error
+      console.log("APOSDJ");
+      console.log(res);
+    });
+  }
+
+  // Initialise quill editor
+  private initializeQuill(): void {
+      this.editor
       .onContentChanged.debounceTime(800)
       .distinctUntilChanged()
       .subscribe(data => {
         this.autoSave();
         // console.log(data);
       });
-    this.editor.modules = this.customQuillToolbar; //load custom toolbar
-    this.editor.placeholder = this.placeholderTexts[Math.floor(Math.random() * this.placeholderTexts.length)];
+      this.editor.modules = this.customQuillToolbar; //load custom toolbar
+      this.editor.placeholder = this.placeholderTexts[Math.floor(Math.random() * this.placeholderTexts.length)];
 
-    this.postService.getBlogpost(this.blogpostId)
-    .then((blogpost: Blogpost) => {
-      this.blogpost = blogpost;
-
-      if (!blogpost.lastAutosaved) {
-        // TODO
-      }
-    })
-    .catch((res: any) => {
-      // TODO handle error
-      console.log(res);
-    });
-
-    this.lastAutoSave = "Last autosave: Not yet";
+      this.lastAutoSave = "Last autosave: Not yet";
   }
 
   //publish for unpublished posts (buttons)

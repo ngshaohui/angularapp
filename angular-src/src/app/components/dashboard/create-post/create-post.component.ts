@@ -16,7 +16,7 @@ import { Blogpost } from '../../core/models/blogpost';
   styleUrls: ['./create-post.component.scss']
 })
 export class CreatePostComponent implements OnInit {
-  postId: string;
+  postId: String;
 
   constructor(
     private fb: FormBuilder,
@@ -27,7 +27,17 @@ export class CreatePostComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.postId = this.idService.generateUniqueId();
+    //create the empty blogpost
+    let blogpost = new Blogpost;
+    blogpost.id = this.idService.generateUniqueId();
+    this.postService.saveBlogpostDraft(blogpost)
+    .then(res => {
+      this.postId = blogpost.id;
+    })
+    .catch(res => {
+      console.log(res);
+    });
+    //only create the wysiwyg component when the blogpost has been created in the db
   }
 
 }

@@ -1,6 +1,7 @@
 <div class="dashboard-wysiwyg-editor-component-container">
+    wysiwyg component
     <div *ngIf="blogpost">
-        <input type="text" [(ngModel)]="blogpost.title" class="form-control post-title" id="postTitle" placeholder="Title">
+        <input type="text" [(ngModel)]="blogpost.title" class="form-control post-title" placeholder="Title">
         <form [formGroup]="form">
             <quill-editor #editor formControlName="editor"></quill-editor>
         </form>

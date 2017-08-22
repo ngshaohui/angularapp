@@ -6,9 +6,11 @@ var blogpostSchema = new Schema({
   title: String,
   content: String,
   created: String,
+  firstPublished: String,
   lastUpdated: String,
-  tags: [String]
-  // published: Boolean,
+  lastAutosaved: String,
+  tags: [String],
+  published: Boolean,
   // hidden: Boolean,
   // meta: {
   //   favs: {
