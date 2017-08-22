@@ -6,7 +6,7 @@ export class Blogpost {
   created: string;
   firstPublished: string;
   lastUpdated: string;
-  lastAutosaved: string;
+  lastAutosave: string;
   tags: string[];
 
 }

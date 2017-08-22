@@ -10,12 +10,15 @@ import { Blogpost } from '../models/blogpost';
 import { COMPLETED_POSTS } from '../dummydata/dummy-posts';
 
 const BlogpostRoutes = {
-    new: "http://localhost:3000/api/new",
     get: "http://localhost:3000/api/posts",
-    saveDraft: "http://localhost:3000/api/drafts",
+    create: "http://localhost:3000/api/posts",
     save: "http://localhost:3000/api/posts",
-    publish: "http://localhost:3000/api/posts",
-    delete: "http://localhost:3000/api/posts/delete"
+    delete: "http://localhost:3000/api/posts/delete",
+    getDraft: "http://localhost:3000/api/drafts",
+    createDraft: "http://localhost:3000/api/drafts",
+    saveDraft: "http://localhost:3000/api/drafts",
+    deleteDraft: "http://localhost:3000/api/drafts/delete",
+    publishDraft: "http://localhost:3000/api/posts"
 }
 
 @Injectable()
@@ -38,11 +41,9 @@ export class PostService {
                 .get(BlogpostRoutes.get + "/" + postId, { headers: headers })
                 .subscribe(
                 data => {
-                    console.log("resolve");
                     resolve(data.json());
                 },
                 err => {
-                    console.log("reject");
                     reject(err);
                 });
         });
@@ -60,11 +61,9 @@ export class PostService {
                 .get(BlogpostRoutes.get + "/" + postId, { headers: headers })
                 .subscribe(
                 data => {
-                    console.log("resolve");
                     resolve(data.json());
                 },
                 err => {
-                    console.log("reject");
                     reject(err);
                 });
         });
@@ -74,8 +73,8 @@ export class PostService {
         return Promise.resolve(COMPLETED_POSTS);
     }
 
-    // Save draft of post
-    saveBlogpostDraft(blogpost: Blogpost) {
+    // CREATE draft of post
+    createBlogpostDraft(blogpost: Blogpost) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', this.authService.getToken());
@@ -89,6 +88,57 @@ export class PostService {
                 },
                 err => {
                     reject({success: false});
+                });
+        });
+    }
+
+    // Save draft of post
+    saveBlogpostDraft(blogpost: Blogpost) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', this.authService.getToken());
+        console.log("saving the following entity");
+        console.log(blogpost);
+        
+        return new Promise((resolve, reject) => {
+            this.http
+                .patch(BlogpostRoutes.saveDraft + '/' + blogpost.id, blogpost, { headers: headers })
+                .subscribe(
+                data => {
+                    resolve({success: true});
+                },
+                err => {
+                    reject({success: false});
+                });
+        });
+    }
+
+    getBlogpostDraft(postId: string): Promise<Blogpost> {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', this.authService.getToken());
+
+        //TODO require token
+
+        return new Promise((resolve, reject) => {
+            this.http
+                .get(BlogpostRoutes.getDraft + "/" + postId, { headers: headers })
+                .subscribe(
+                data => {
+                    let result = data.json();
+                    resolve({
+                        id: result._id,
+                        title: result.title,
+                        content: result.content,
+                        created: result.created,
+                        firstPublished: result.first_published,
+                        lastUpdated: result.last_updated,
+                        lastAutosave: result.last_autosave,
+                        tags: result.tags,
+                    } as Blogpost);
+                },
+                err => {
+                    reject(err);
                 });
         });
     }
@@ -121,7 +171,7 @@ export class PostService {
 
         return new Promise((resolve, reject) => {
             this.http
-                .post(BlogpostRoutes.publish, blogpost, { headers: headers })
+                .post(BlogpostRoutes.publishDraft, blogpost, { headers: headers })
                 .subscribe(
                 data => {
                     if (data.status === 400) {

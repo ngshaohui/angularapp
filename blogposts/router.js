@@ -13,35 +13,72 @@ var config = require('../config.js');
  * saving would imply that the blogpost already exists
  */
 
-// Save blogpost draft
+// Create blogpost draft
 router.post('/drafts', function (req, res, next) {
     var newBlogpostDraft = new BlogpostDraft();
     newBlogpostDraft._id = req.body.id;
     newBlogpostDraft.title = req.body.title;
     newBlogpostDraft.content = req.body.content;
     newBlogpostDraft.created = req.body.created;
-    newBlogpostDraft.firstPublished = req.body.firstPublished;
-    newBlogpostDraft.lastUpdated = req.body.lastUpdated;
-    newBlogpostDraft.lastAutosaved = req.body.lastAutosaved;
+    newBlogpostDraft.first_published = req.body.first_published;
+    newBlogpostDraft.last_updated = req.body.last_updated;
+    newBlogpostDraft.last_autosave = req.body.last_autosave;
     newBlogpostDraft.tags = req.body.tags;
-    newBlogpostDraft.published = req.body.published;
+    newBlogpostDraft.is_published = req.body.is_published;
     // newBlogpostDraft.hidden = req.body.hidden;
     // newBlogpostDraft.meta.favs = req.body.meta.favs;
-    console.log(typeof newBlogpostDraft);
+    console.log(newBlogpostDraft);
 
-    console.log(newBlogpostDraft.save(function(err, blogpost) {
-        console.log("try see if this card");
+    newBlogpostDraft.save(function(err) {
         if (err) {
-            // res.sendStatus(400);
+            console.log("an error occured while attempting to CREATE the draft");
             console.log(err);
-            console.log("error while saving blogpost to db");
-            res.send(err);
+            res.sendStatus(400);
         } else {
-            console.log(blogpost);
-            console.log("successfully saved blogpost to db");
             res.sendStatus(200);
         }
-    }));
+    });
+});
+
+// UPDATE draft
+router.patch('/drafts/:id', function (req, res, next) {
+    BlogpostDraft.findById(req.params.id, function(err, blogpostDraft) {
+        if (err) {
+            res.send(err);
+        } else {
+            // update each possible attribute
+            blogpostDraft._id = req.body._id || blogpostDraft._id;
+            blogpostDraft.title = req.body.title || blogpostDraft.title;
+            blogpostDraft.content = req.body.content || blogpostDraft.content;
+            blogpostDraft.created = req.body.created || blogpostDraft.created;
+            blogpostDraft.first_published = req.body.first_published || blogpostDraft.first_published;
+            blogpostDraft.last_updated = req.body.last_updated || blogpostDraft.last_updated;
+            blogpostDraft.last_autosave = req.body.last_autosave || blogpostDraft.last_autosave;
+            blogpostDraft.tags = req.body.tags || blogpostDraft.tags;
+            blogpostDraft.is_published = req.body.is_published || blogpostDraft.is_published;
+
+            blogpostDraft.save(function (err, blogpostDraft) {
+                if (err) {
+                    console.log("an error occured while attempting to SAVE the draft");
+                    console.log(err);
+                    res.sendStatus(400);
+                } else {
+                    res.sendStatus(200);
+                }
+            });
+        }
+    });
+});
+
+// Get draft by ID
+router.get('/drafts/:id', function(req, res, next) {
+    BlogpostDraft.findById(req.params.id, function(err, draft) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.json(draft);
+        }
+    });
 });
 
 /*
@@ -59,11 +96,11 @@ router.post('/posts', function (req, res, next) {
     newBlogpost.title = req.body.title;
     newBlogpost.content = req.body.content;
     newBlogpost.created = req.body.created;
-    newBlogpost.firstPublished = req.body.firstPublished;
-    newBlogpost.lastUpdated = req.body.lastUpdated;
-    newBlogpost.lastAutosaved = req.body.lastAutosaved;
+    newBlogpost.first_published = req.body.first_published;
+    newBlogpost.last_updated = req.body.last_updated;
+    newBlogpost.last_autosave = req.body.last_autosave;
     newBlogpost.tags = req.body.tags;
-    newBlogpost.published = req.body.published;
+    newBlogpost.is_published = req.body.is_published;
     // newBlogpost.hidden = req.body.hidden;
     // newBlogpost.meta.favs = req.body.meta.favs;
 

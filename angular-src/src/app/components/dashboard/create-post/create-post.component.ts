@@ -30,7 +30,9 @@ export class CreatePostComponent implements OnInit {
     //create the empty blogpost
     let blogpost = new Blogpost;
     blogpost.id = this.idService.generateUniqueId();
-    this.postService.saveBlogpostDraft(blogpost)
+    blogpost.lastAutosave = "Not yet";
+    blogpost.created = new Date().toLocaleString('en-US');
+    this.postService.createBlogpostDraft(blogpost)
     .then(res => {
       this.postId = blogpost.id;
     })

@@ -1,22 +1,30 @@
 <div class="dashboard-wysiwyg-editor-component-container">
-    wysiwyg component
-    <div *ngIf="blogpost">
-        <input type="text" [(ngModel)]="blogpost.title" class="form-control post-title" placeholder="Title">
+    <div *ngIf="!blogpost">
+        <bouncing-loader *ngIf="!posts"></bouncing-loader>
+    </div>
+    <div [hidden]="!blogpost">
+        <div *ngIf="blogpost">
+            <input type="text" [(ngModel)]="blogpost.title" class="form-control post-title" placeholder="Title">
+        </div>
         <form [formGroup]="form">
             <quill-editor #editor formControlName="editor"></quill-editor>
         </form>
-        <div class="d-flex editor-control">
-            <p class="text-muted">{{lastAutoSave}}</p>
-            <div class="editor-buttons">
-                <button class="btn btn-danger">
-                    <i class="fa fa-trash-o fa-lg"></i> Delete
-                </button>
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#postPreviewModal">
-                    <i class="fa fa-eye fa-lg"></i> Preview
-                </button>
-                <button (click)="publishPost()" type="button" class="btn btn-primary">
-                    <i class="fa fa-book fa-lg"></i> Publish
-                </button>
+        <div *ngIf="blogpost">
+            <div class="d-flex editor-control">
+                <p class="text-muted">
+                    Last autosave: {{blogpost.lastAutosave}}
+                </p>
+                <div class="editor-buttons">
+                    <button class="btn btn-danger">
+                        <i class="fa fa-trash-o fa-lg"></i> Delete
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#postPreviewModal">
+                        <i class="fa fa-eye fa-lg"></i> Preview
+                    </button>
+                    <button (click)="publishPost()" type="button" class="btn btn-primary">
+                        <i class="fa fa-book fa-lg"></i> Publish
+                    </button>
+                </div>
             </div>
         </div>
         <h3>Raw view</h3>

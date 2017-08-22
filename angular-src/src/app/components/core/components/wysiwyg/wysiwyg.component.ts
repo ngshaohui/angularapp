@@ -1,4 +1,8 @@
-// TODO rename to wysiwyg-editor
+/* 
+ * TODO 
+ * rename to wysiwyg-editor
+ * add autosave to title
+ */
 
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -11,9 +15,6 @@ import { PostService } from '../../services/post.service';
 
 import { Blogpost } from '../../models/blogpost';
 
-// TODO check implementation of constant
-const NOT_AUTOSAVED_MESSAGE = "Last autosave: Not yet";
-
 @Component({
   selector: 'wysiwyg-editor',
   templateUrl: './wysiwyg.component.html',
@@ -24,7 +25,6 @@ export class WysiwygComponent implements OnInit {
   blogpostId: string;
 
   blogpost: Blogpost;
-  lastAutoSave: string; //should move the last autosave under the blogpost interface
 
   // Quill editor
   form: FormGroup;
@@ -68,23 +68,14 @@ export class WysiwygComponent implements OnInit {
   @ViewChild('editor') editor: QuillEditorComponent
 
   ngOnInit() {
-    this.postService.getBlogpost(this.blogpostId)
+    this.initializeQuill();
+    this.postService.getBlogpostDraft(this.blogpostId)
     .then((blogpost: Blogpost) => {
-      // this.blogpost = blogpost;
-      // console.log(this.blogpost);
-      this.blogpost = new Blogpost;
-      console.log("APSODJPAOSJD");
-      console.log(blogpost);
-      this.blogpost.id = this.blogpostId;
-
-      if (!blogpost.lastAutosaved) {
-        // TODO
-      }
+      this.blogpost = blogpost;
 
     })
     .catch((res: any) => {
       // TODO handle error
-      console.log("APOSDJ");
       console.log(res);
     });
   }
@@ -96,12 +87,9 @@ export class WysiwygComponent implements OnInit {
       .distinctUntilChanged()
       .subscribe(data => {
         this.autoSave();
-        // console.log(data);
       });
       this.editor.modules = this.customQuillToolbar; //load custom toolbar
       this.editor.placeholder = this.placeholderTexts[Math.floor(Math.random() * this.placeholderTexts.length)];
-
-      this.lastAutoSave = "Last autosave: Not yet";
   }
 
   //publish for unpublished posts (buttons)
@@ -124,10 +112,14 @@ export class WysiwygComponent implements OnInit {
 
   //this should be in a service
   private autoSave(): void {
-    let currentDate = new Date().toLocaleString('en-US');
-    this.blogpost.lastAutosaved = currentDate; //TODO change lastAutosaved to lastAutosave
+    this.blogpost.content = this.form.controls.editor.value;
   
-    this.postService.saveBlogpostDraft(this.blogpost);
-    this.lastAutoSave = "Last autosave: " + currentDate;
+    this.postService.saveBlogpostDraft(this.blogpost)
+    .then(res => {
+      this.blogpost.lastAutosave = new Date().toLocaleString('en-US');
+    })
+    .catch(res => {
+      console.log("unable to autosave");
+    });
   }
 }

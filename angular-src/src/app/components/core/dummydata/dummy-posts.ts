@@ -8,7 +8,7 @@ export const COMPLETED_POSTS: Blogpost[] = [
         created: Date(),
         firstPublished: Date(),
         lastUpdated: Date(),
-        lastAutosaved: Date(),
+        lastAutosave: Date(),
         tags: ['first', 'long', 'text']
     } as Blogpost,
     {
@@ -18,7 +18,7 @@ export const COMPLETED_POSTS: Blogpost[] = [
         created: Date(),
         firstPublished: Date(),
         lastUpdated: Date(),
-        lastAutosaved: Date(),
+        lastAutosave: Date(),
         tags: ['second']
     },
     {
@@ -28,7 +28,7 @@ export const COMPLETED_POSTS: Blogpost[] = [
         created: Date(),
         firstPublished: Date(),
         lastUpdated: Date(),
-        lastAutosaved: Date(),
+        lastAutosave: Date(),
         tags: ['third', 'security', 'xss']
     },
     {
@@ -38,7 +38,7 @@ export const COMPLETED_POSTS: Blogpost[] = [
         created: Date(),
         firstPublished: Date(),
         lastUpdated: Date(),
-        lastAutosaved: Date(),
+        lastAutosave: Date(),
         tags: ['fourth', 'security', 'xss']
     },
     {
@@ -48,7 +48,7 @@ export const COMPLETED_POSTS: Blogpost[] = [
         created: Date(),
         firstPublished: Date(),
         lastUpdated: Date(),
-        lastAutosaved: Date(),
+        lastAutosave: Date(),
         tags: ['fifth', 'long', 'text']
     },
 ];
