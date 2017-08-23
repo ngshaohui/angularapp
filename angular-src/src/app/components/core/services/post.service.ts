@@ -167,6 +167,7 @@ export class PostService {
     }
 
     // DELETE draft
+    // TODO should not actually delete the draft, just store it in a separate DB
     deleteDraft(draftId: string): Promise<any> {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -212,6 +213,27 @@ export class PostService {
                     reject({success: false});
                 });
         });
+    }
+
+    // deletedDrafts DB
+
+    // TODO should call remove draft and publish draft
+    publishBlogpost(blogpost: Blogpost) {
+        //publish draft
+        //delete draft
+    }
+
+    createDeletedDraft() {
+        ;
+    }
+
+    deleteDeletedDraft() {
+        //delete from deleted db
+    }
+
+    restoreDeletedDraft() {
+        //delete from deleted db
+        //create in draft db
     }
 
 }

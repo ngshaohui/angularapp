@@ -72,9 +72,12 @@ export class WysiwygComponent implements OnInit {
 
   ngOnInit() {
     this.initializeQuill();
+    // TODO refactor the following to its own function
     this.postService.getBlogpostDraft(this.blogpostId)
     .then((blogpost: Blogpost) => {
+      console.log(blogpost);
       this.blogpost = blogpost;
+      this.lastAutosave = blogpost.lastAutosave;
     })
     .catch((res: any) => {
       // TODO handle error

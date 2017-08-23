@@ -44,7 +44,8 @@ router.post('/login', function(req, res, next) {
             .then(function(status) {
                 if (status) {
                     var token = jwt.sign({
-                        username: user.username
+                        username: user.username,
+                        admin: user.admin
                     }, config.secret, {
                         expiresIn: 1440 // expires in 24 hours
                     });
