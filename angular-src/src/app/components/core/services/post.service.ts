@@ -162,9 +162,31 @@ export class PostService {
         });
     }
 
+    deleteDraft(blogpostId: string): Promise<any> {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', this.authService.getToken());
+
+        return new Promise((resolve, reject) => {
+            this.http
+                .post(BlogpostRoutes.deleteDraft + '/' + blogpostId, { headers: headers })
+                .subscribe(
+                data => {
+                    if (data.status === 400) {
+                        reject({success: false});
+                    } else {
+                        resolve({success: true});
+                    }
+                },
+                err => {
+                    reject({success: false});
+                });
+        });
+    }
+
     // TODO when publishing, check if post has already been published
     // if so, should be doing an update
-    publishBlogpost(blogpost: Blogpost): Promise<any> {
+    publishDraft(blogpost: Blogpost): Promise<any> {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', this.authService.getToken());

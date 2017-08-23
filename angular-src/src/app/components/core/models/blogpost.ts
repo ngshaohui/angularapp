@@ -8,5 +8,6 @@ export class Blogpost {
   lastUpdated: string;
   lastAutosave: string;
   tags: string[];
+  isPublished: boolean;
 
 }

@@ -6,11 +6,12 @@
 
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { QuillEditorComponent } from 'ngx-quill/src/quill-editor.component';
 import "rxjs/add/operator/debounceTime";
 import 'rxjs/add/operator/distinctUntilChanged';
-import { IdService } from '../../services/id.service';
 
+import { IdService } from '../../services/id.service';
 import { PostService } from '../../services/post.service';
 
 import { Blogpost } from '../../models/blogpost';
@@ -25,6 +26,7 @@ export class WysiwygComponent implements OnInit {
   blogpostId: string;
 
   blogpost: Blogpost;
+  lastAutosave: string;
 
   // Quill editor
   form: FormGroup;
@@ -43,6 +45,7 @@ export class WysiwygComponent implements OnInit {
     private fb: FormBuilder,
     private idService: IdService,
     private postService: PostService,
+    private router: Router
   ) {
     this.form = fb.group({
       editor: []
@@ -72,7 +75,6 @@ export class WysiwygComponent implements OnInit {
     this.postService.getBlogpostDraft(this.blogpostId)
     .then((blogpost: Blogpost) => {
       this.blogpost = blogpost;
-
     })
     .catch((res: any) => {
       // TODO handle error
@@ -95,31 +97,66 @@ export class WysiwygComponent implements OnInit {
   //publish for unpublished posts (buttons)
   //update for published posts
   publishPost(): void {
-    //TODO force save the form
+    //TODO force save the draft
+    this.autoSave()
+    .then(res => {
+      let currentDate = new Date().toLocaleString('en-US');
 
-    let currentDate = new Date().toLocaleString('en-US');
+      // check if the post has ever been published
+      if (!this.blogpost.firstPublished) {
+        this.blogpost.firstPublished = currentDate;
+      }
 
-    // check if the post has ever been published
-    if (!this.blogpost.firstPublished) {
-      this.blogpost.firstPublished = currentDate;
-    }
+      // store/update the date of publish
+      this.blogpost.lastUpdated = currentDate;
 
-    // store/update the date of publish
-    this.blogpost.lastUpdated = currentDate;
+      this.postService.publishDraft(this.blogpost)
+      .then(res => {
+        if (res.success) {
+          this.router.navigate(['/dashboard/posts']);
+        } else {
+          // TODO error handling
+          console.log("unable to publish the blogpost draft");
+        }
+      })
+      .catch(res => {
+        // TODO proper error handling
+        console.log("an error occured while publishing the post");
+      });
+    })
+    .catch(res => {
+      console.log("unable to save before publishing");
+      console.log(res);
+    });
+  }
 
-    this.postService.publishBlogpost(this.blogpost);
+  // TODO have a confirmation modal before deleting post
+  // have a db for storing the deleted posts
+  deleteDraft(): void {
+    this.postService.deleteDraft(this.blogpost.id)
+    .then(res => {
+      if (res.success) {
+        this.router.navigate(['/dashboard/posts']);
+      }
+    })
   }
 
   //this should be in a service
-  private autoSave(): void {
+  private autoSave(): Promise<any> {
     this.blogpost.content = this.form.controls.editor.value;
   
-    this.postService.saveBlogpostDraft(this.blogpost)
-    .then(res => {
+    return new Promise((resolve, reject) => {
       this.blogpost.lastAutosave = new Date().toLocaleString('en-US');
-    })
-    .catch(res => {
-      console.log("unable to autosave");
+      this.postService.saveBlogpostDraft(this.blogpost)
+      .then(res => {
+        // TODO resolve error, lastAutosave
+        this.lastAutosave = new Date().toLocaleString('en-US');
+        resolve({success: true});
+      })
+      .catch(res => {
+        console.log("unable to autosave");
+        reject({success: false});
+      });
     });
   }
 }
