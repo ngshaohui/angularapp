@@ -9,12 +9,14 @@ import { AuthService } from '../../auth/auth.service';
 import { Blogpost } from '../models/blogpost';
 import { COMPLETED_POSTS } from '../dummydata/dummy-posts';
 
+// TODO reorder this in a sensible manner
 const BlogpostRoutes = {
     get: "http://localhost:3000/api/posts",
     create: "http://localhost:3000/api/posts",
     save: "http://localhost:3000/api/posts",
     delete: "http://localhost:3000/api/posts",
     getDraft: "http://localhost:3000/api/drafts",
+    getDrafts: "http://localhost:3000/api/drafts",
     createDraft: "http://localhost:3000/api/drafts",
     saveDraft: "http://localhost:3000/api/drafts",
     deleteDraft: "http://localhost:3000/api/drafts",
@@ -29,6 +31,106 @@ export class PostService {
         private authService: AuthService
     ) { }
 
+    // CREATE draft of post
+    createBlogpostDraft(blogpost: Blogpost): Promise<any> {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', this.authService.getToken());
+        
+        return new Promise((resolve, reject) => {
+            this.http
+                .post(BlogpostRoutes.saveDraft, blogpost, { headers: headers })
+                .subscribe(
+                data => {
+                    resolve({success: true});
+                },
+                err => {
+                    reject({success: false});
+                });
+        });
+    }
+
+    getBlogpostDrafts(): Promise<Blogpost[]> {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', this.authService.getToken());
+
+        return new Promise((resolve, reject) => {
+            this.http
+                .get(BlogpostRoutes.getDraft, { headers: headers })
+                .subscribe(
+                data => {
+                    let drafts = [];
+                    let results = data.json();
+                    for (let result of results) {
+                        drafts.push({
+                            id: result._id,
+                            title: result.title,
+                            content: result.content,
+                            created: result.created,
+                            firstPublished: result.first_published,
+                            lastUpdated: result.last_updated,
+                            lastAutosave: result.last_autosave,
+                            tags: result.tags,
+                        } as Blogpost)
+                    }
+                    resolve(drafts);
+                },
+                err => {
+                    reject(err);
+                });
+        });
+    }
+    
+    getBlogpostDraft(postId: string): Promise<Blogpost> {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', this.authService.getToken());
+
+        return new Promise((resolve, reject) => {
+            this.http
+                .get(BlogpostRoutes.getDraft + "/" + postId, { headers: headers })
+                .subscribe(
+                data => {
+                    let result = data.json();
+                    resolve({
+                        id: result._id,
+                        title: result.title,
+                        content: result.content,
+                        created: result.created,
+                        firstPublished: result.first_published,
+                        lastUpdated: result.last_updated,
+                        lastAutosave: result.last_autosave,
+                        tags: result.tags,
+                    } as Blogpost);
+                },
+                err => {
+                    reject(err);
+                });
+        });
+    }
+
+    // Save draft of post
+    saveBlogpostDraft(blogpost: Blogpost): Promise<any> {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', this.authService.getToken());
+        console.log("saving the following entity");
+        console.log(blogpost);
+        
+        return new Promise((resolve, reject) => {
+            this.http
+                .patch(BlogpostRoutes.saveDraft + '/' + blogpost.id, blogpost, { headers: headers })
+                .subscribe(
+                data => {
+                    resolve({success: true});
+                },
+                err => {
+                    reject({success: false});
+                });
+        });
+    }
+    
     // TODO return type
     createBlogpost(postId: string) {
         let headers = new Headers();
@@ -41,10 +143,10 @@ export class PostService {
                 .get(BlogpostRoutes.get + "/" + postId, { headers: headers })
                 .subscribe(
                 data => {
-                    resolve(data.json());
+                    resolve({success: true});
                 },
                 err => {
-                    reject(err);
+                    reject({success: false});
                 });
         });
     }
@@ -71,76 +173,6 @@ export class PostService {
 
     getBlogposts(): Promise<Blogpost[]> {
         return Promise.resolve(COMPLETED_POSTS);
-    }
-
-    // CREATE draft of post
-    createBlogpostDraft(blogpost: Blogpost): Promise<any> {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Authorization', this.authService.getToken());
-        
-        return new Promise((resolve, reject) => {
-            this.http
-                .post(BlogpostRoutes.saveDraft, blogpost, { headers: headers })
-                .subscribe(
-                data => {
-                    resolve({success: true});
-                },
-                err => {
-                    reject({success: false});
-                });
-        });
-    }
-
-    // Save draft of post
-    saveBlogpostDraft(blogpost: Blogpost): Promise<any> {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Authorization', this.authService.getToken());
-        console.log("saving the following entity");
-        console.log(blogpost);
-        
-        return new Promise((resolve, reject) => {
-            this.http
-                .patch(BlogpostRoutes.saveDraft + '/' + blogpost.id, blogpost, { headers: headers })
-                .subscribe(
-                data => {
-                    resolve({success: true});
-                },
-                err => {
-                    reject({success: false});
-                });
-        });
-    }
-
-    getBlogpostDraft(postId: string): Promise<Blogpost> {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Authorization', this.authService.getToken());
-
-        //TODO require token
-
-        return new Promise((resolve, reject) => {
-            this.http
-                .get(BlogpostRoutes.getDraft + "/" + postId, { headers: headers })
-                .subscribe(
-                data => {
-                    let result = data.json();
-                    resolve({
-                        id: result._id,
-                        title: result.title,
-                        content: result.content,
-                        created: result.created,
-                        firstPublished: result.first_published,
-                        lastUpdated: result.last_updated,
-                        lastAutosave: result.last_autosave,
-                        tags: result.tags,
-                    } as Blogpost);
-                },
-                err => {
-                    reject(err);
-                });
-        });
     }
 
     // DELETE blogpost
@@ -218,9 +250,28 @@ export class PostService {
     // deletedDrafts DB
 
     // TODO should call remove draft and publish draft
-    publishBlogpost(blogpost: Blogpost) {
+    publishBlogpost(blogpost: Blogpost): Promise<any> {
         //publish draft
-        //delete draft
+        return new Promise((resolve, reject) => {
+            this.publishDraft(blogpost)
+            .then(res => {
+                if (res.success) {
+                    // this.moveDraftToDeleted
+                } else {
+                    // TODO proper error handling
+                }
+            })
+            .catch(res => {
+                // TODO proper error handling
+                console.log(res);
+                reject({success: false});
+            })
+            //delete draft
+        });
+    }
+
+    moveDraftToDeleted(draftId: string) {
+        ;
     }
 
     createDeletedDraft() {

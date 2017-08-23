@@ -5,13 +5,8 @@ var mongoose = require('mongoose');
 var blogpostSchema = require('./blogpost-model');
 var Blogpost = mongoose.model('Blogpost', blogpostSchema);
 var BlogpostDraft = mongoose.model('BlogpostDraft', blogpostSchema);
+var DeletedDraft = mongoose.model('DeletedDraft', blogpostSchema);
 var config = require('../config.js');
-
-/*
- * NOTE
- * Creating and saving posts should be different
- * saving would imply that the blogpost already exists
- */
 
 // CREATE blogpost draft
 router.post('/drafts', function (req, res, next) {
@@ -39,6 +34,41 @@ router.post('/drafts', function (req, res, next) {
                 res.sendStatus(400);
             } else {
                 res.sendStatus(200);
+            }
+        });
+    // } else {
+    //     res.sendStatus(403);
+    // }
+});
+
+// GET draft by ID
+// TODO need to handle case where entry is not found in collection
+router.get('/drafts/:id', function(req, res, next) {
+    // var token = req.get('Authorization');
+    // var decoded = jwt.verify(token, config.secret);
+    // if (decoded.admin) {
+        BlogpostDraft.findById(req.params.id, function(err, draft) {
+            if (err) {
+                res.status(400).send(err);
+            } else {
+                res.json(draft);
+            }
+        });
+    // } else {
+    //     res.sendStatus(403);
+    // }
+});
+
+// GET all drafts
+router.get('/drafts', function(req, res, next) {
+    // var token = req.get('Authorization');
+    // var decoded = jwt.verify(token, config.secret);
+    // if (decoded.admin) {
+        BlogpostDraft.find({}, function(err, drafts) {
+            if (err) {
+                res.send(err); // TODO figure out how to do error handling
+            } else {
+                res.json(drafts);
             }
         });
     // } else {
@@ -82,41 +112,6 @@ router.patch('/drafts/:id', function (req, res, next) {
     // }
 });
 
-// GET draft by ID
-// TODO need to handle case where entry is not found in collection
-router.get('/drafts/:id', function(req, res, next) {
-    // var token = req.get('Authorization');
-    // var decoded = jwt.verify(token, config.secret);
-    // if (decoded.admin) {
-        BlogpostDraft.findById(req.params.id, function(err, draft) {
-            if (err) {
-                res.status(400).send(err);
-            } else {
-                res.json(draft);
-            }
-        });
-    // } else {
-    //     res.sendStatus(403);
-    // }
-});
-
-// GET all drafts
-router.get('/drafts', function(req, res, next) {
-    // var token = req.get('Authorization');
-    // var decoded = jwt.verify(token, config.secret);
-    // if (decoded.admin) {
-        BlogpostDraft.find({}, function(err, drafts) {
-            if (err) {
-                res.send(err); // TODO figure out how to do error handling
-            } else {
-                res.json(drafts);
-            }
-        });
-    // } else {
-    //     res.sendStatus(403);
-    // }
-});
-
 // DELETE draft
 router.delete('/drafts/:id', function(req, res, next) {
     // var token = req.get('Authorization');
@@ -151,11 +146,11 @@ router.post('/posts', function (req, res, next) {
         newBlogpost.title = req.body.title;
         newBlogpost.content = req.body.content;
         newBlogpost.created = req.body.created;
-        newBlogpost.first_published = req.body.first_published;
-        newBlogpost.last_updated = req.body.last_updated;
-        newBlogpost.last_autosave = req.body.last_autosave;
+        newBlogpost.first_published = req.body.firstPublished;
+        newBlogpost.last_updated = req.body.lastUpdated;
+        newBlogpost.last_autosave = req.body.lastAutosave;
         newBlogpost.tags = req.body.tags;
-        newBlogpost.is_published = req.body.is_published;
+        newBlogpost.is_published = req.body.isPublished;
         // newBlogpost.hidden = req.body.hidden;
         // newBlogpost.meta.favs = req.body.meta.favs;
 
@@ -172,6 +167,44 @@ router.post('/posts', function (req, res, next) {
     //     res.sendStatus(403);
     // }
 });
+
+// GET post by ID
+router.get('/posts/:id', function(req, res, next) {
+    // var token = req.get('Authorization');
+    // var decoded = jwt.verify(token, config.secret);
+    // if (decoded.admin) {
+        Blogpost.findById(req.params.id, function(err, blogpost) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.json(blogpost);
+            }
+        });
+    // } else {
+    //     res.sendStatus(403);
+    // }
+});
+
+// GET all blogposts
+router.get('/posts', function(req, res, next) {
+    // var token = req.get('Authorization');
+    // var decoded = jwt.verify(token, config.secret);
+    // if (decoded.admin) {
+        Blogpost.find({}, function(err, blogposts) {
+            if (err) {
+                res.send(err); // TODO figure out how to do error handling
+            } else {
+                res.json(blogposts);
+            }
+        });
+    // } else {
+    //     res.sendStatus(403);
+    // }
+});
+
+// TODO get post by month
+
+// TODO get posts in date range
 
 // UPDATE blogpost
 router.patch('/posts/:id', function(req, res, next) {
@@ -222,43 +255,37 @@ router.delete('/posts/:id', function(req, res, next) {
     // }
 });
 
-// GET post by ID
-router.get('/posts/:id', function(req, res, next) {
+// CREATE deleted blogpost draft
+router.post('/trash', function (req, res, next) {
     // var token = req.get('Authorization');
     // var decoded = jwt.verify(token, config.secret);
     // if (decoded.admin) {
-        Blogpost.findById(req.params.id, function(err, blogpost) {
+        var deletedBlogpost = new DeletedDraft();
+        deletedBlogpost._id = req.body.id;
+        deletedBlogpost.title = req.body.title;
+        deletedBlogpost.content = req.body.content;
+        deletedBlogpost.created = req.body.created;
+        deletedBlogpost.first_published = req.body.firstPublished;
+        deletedBlogpost.last_updated = req.body.lastUpdated;
+        deletedBlogpost.last_autosave = req.body.lastAutosave;
+        deletedBlogpost.tags = req.body.tags;
+        deletedBlogpost.is_published = req.body.isPublished;
+        // newBlogpostDraft.hidden = req.body.hidden;
+        // newBlogpostDraft.meta.favs = req.body.meta.favs;
+        console.log(deletedBlogpost);
+
+        deletedBlogpost.save(function(err) {
             if (err) {
-                res.send(err);
+                console.log("an error occured while attempting to CREATE the deletedBlogpost");
+                console.log(err);
+                res.sendStatus(400);
             } else {
-                res.json(blogpost);
+                res.sendStatus(200);
             }
         });
     // } else {
     //     res.sendStatus(403);
     // }
 });
-
-//TODO get post by month
-router.post('/posts/:id', function(req, res, next) {
-    // var token = req.get('Authorization');
-    // var decoded = jwt.verify(token, config.secret);
-    // if (decoded.admin) {
-        Blogpost.find({
-            date_published: new Date(req.body.date)
-        })
-        .exec(function(err, blogpost) {
-            if (err) {
-                res.send(err);
-            } else {
-                res.json(blogpost);
-            }
-        });
-    // } else {
-    //     res.sendStatus(403);
-    // }
-});
-
-//TODO get posts in date range
 
 module.exports = router;

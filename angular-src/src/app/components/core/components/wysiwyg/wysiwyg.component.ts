@@ -83,6 +83,9 @@ export class WysiwygComponent implements OnInit {
       // TODO handle error
       console.log(res);
     });
+    this.postService.getBlogpostDrafts().then(res => {
+      console.log(res);
+    });
   }
 
   // Initialise quill editor
@@ -99,7 +102,7 @@ export class WysiwygComponent implements OnInit {
 
   //publish for unpublished posts (buttons)
   //update for published posts
-  publishDraft(): void {
+  publishBlogpost(): void {
     //TODO force save the draft
     this.autoSave()
     .then(res => {
@@ -116,7 +119,7 @@ export class WysiwygComponent implements OnInit {
       // store/update the date of publish
       this.blogpost.lastUpdated = currentDate;
 
-      this.postService.publishDraft(this.blogpost)
+      this.postService.publishBlogpost(this.blogpost)
       .then(res => {
         if (res.success) {
           this.router.navigate(['/dashboard/posts']);
