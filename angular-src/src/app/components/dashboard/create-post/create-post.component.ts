@@ -36,7 +36,12 @@ export class CreatePostComponent implements OnInit {
 
     this.postService.createBlogpostDraft(blogpost)
     .then(res => {
-      this.postId = blogpost.id;
+      if (res.success) {
+        this.postId = blogpost.id;
+      } else {
+        // TODO proper error handling
+        console.log("Something went wrong when creating the blogpost draft");
+      }
     })
     .catch(res => {
       console.log(res);

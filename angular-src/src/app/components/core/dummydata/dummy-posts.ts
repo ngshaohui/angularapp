@@ -9,7 +9,8 @@ export const COMPLETED_POSTS: Blogpost[] = [
         firstPublished: Date(),
         lastUpdated: Date(),
         lastAutosave: Date(),
-        tags: ['first', 'long', 'text']
+        tags: ['first', 'long', 'text'],
+        isPublished: true
     } as Blogpost,
     {
         id: "AGo3WC2",
@@ -19,7 +20,8 @@ export const COMPLETED_POSTS: Blogpost[] = [
         firstPublished: Date(),
         lastUpdated: Date(),
         lastAutosave: Date(),
-        tags: ['second']
+        tags: ['second'],
+        isPublished: true
     },
     {
         id: "CmT8L0A",
@@ -29,7 +31,8 @@ export const COMPLETED_POSTS: Blogpost[] = [
         firstPublished: Date(),
         lastUpdated: Date(),
         lastAutosave: Date(),
-        tags: ['third', 'security', 'xss']
+        tags: ['third', 'security', 'xss'],
+        isPublished: true
     },
     {
         id: "Q1W82C4",
@@ -39,7 +42,8 @@ export const COMPLETED_POSTS: Blogpost[] = [
         firstPublished: Date(),
         lastUpdated: Date(),
         lastAutosave: Date(),
-        tags: ['fourth', 'security', 'xss']
+        tags: ['fourth', 'security', 'xss'],
+        isPublished: true
     },
     {
         id: "O23ZJ1P",
@@ -49,6 +53,7 @@ export const COMPLETED_POSTS: Blogpost[] = [
         firstPublished: Date(),
         lastUpdated: Date(),
         lastAutosave: Date(),
-        tags: ['fifth', 'long', 'text']
+        tags: ['fifth', 'long', 'text'],
+        isPublished: true
     },
 ];

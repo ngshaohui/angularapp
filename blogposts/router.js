@@ -13,7 +13,7 @@ var config = require('../config.js');
  * saving would imply that the blogpost already exists
  */
 
-// Create blogpost draft
+// CREATE blogpost draft
 router.post('/drafts', function (req, res, next) {
     var newBlogpostDraft = new BlogpostDraft();
     newBlogpostDraft._id = req.body.id;
@@ -70,7 +70,7 @@ router.patch('/drafts/:id', function (req, res, next) {
     });
 });
 
-// Get draft by ID
+// GET draft by ID
 router.get('/drafts/:id', function(req, res, next) {
     BlogpostDraft.findById(req.params.id, function(err, draft) {
         if (err) {
@@ -81,11 +81,24 @@ router.get('/drafts/:id', function(req, res, next) {
     });
 });
 
-/*
- * Able to use create in this context since information is being copied over
- */
+// DELETE draft
+router.delete('/drafts/:id', function(req, res, next) {
+    console.log("deleting draft");
+    // var decoded = jwt.verify(token, config.secret);
+    // console.log(decoded);
+    BlogpostDraft.findByIdAndRemove(req.params.id, function(err, draft) {
+        if (err) {
+            console.log(err);
+            res.sendStatus(400);
+        } else {
+            console.log(draft);
+            console.log("success deleting");
+            res.sendStatus(200);
+        }
+    });
+});
 
-// Create new blogpost
+// CREATE new blogpost
 router.post('/posts', function (req, res, next) {
     var token = req.get('Authorization');
     var decoded = jwt.verify(token, config.secret);
@@ -115,7 +128,7 @@ router.post('/posts', function (req, res, next) {
     });
 });
 
-// Update blogpost
+// UPDATE blogpost
 router.patch('/posts/:id', function(req, res, next) {
     Blogpost.findById(req.params.id, function(err, blogpost) {
         if (err) {
@@ -139,7 +152,7 @@ router.patch('/posts/:id', function(req, res, next) {
     });
 });
 
-// Delete blogpost
+// DELETE blogpost
 router.delete('/posts/:id', function(req, res, next) {
     console.log(req.headers);
     // var decoded = jwt.verify(token, config.secret);
@@ -155,7 +168,7 @@ router.delete('/posts/:id', function(req, res, next) {
     });
 });
 
-// Get post by ID
+// GET post by ID
 router.get('/posts/:id', function(req, res, next) {
     Blogpost.findById(req.params.id, function(err, blogpost) {
         if (err) {

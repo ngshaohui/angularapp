@@ -84,22 +84,25 @@ export class WysiwygComponent implements OnInit {
 
   // Initialise quill editor
   private initializeQuill(): void {
-      this.editor
-      .onContentChanged.debounceTime(800)
-      .distinctUntilChanged()
-      .subscribe(data => {
-        this.autoSave();
-      });
-      this.editor.modules = this.customQuillToolbar; //load custom toolbar
-      this.editor.placeholder = this.placeholderTexts[Math.floor(Math.random() * this.placeholderTexts.length)];
+    this.editor
+    .onContentChanged.debounceTime(800)
+    .distinctUntilChanged()
+    .subscribe(data => {
+      this.autoSave();
+    });
+    this.editor.modules = this.customQuillToolbar; //load custom toolbar
+    this.editor.placeholder = this.placeholderTexts[Math.floor(Math.random() * this.placeholderTexts.length)];
   }
 
   //publish for unpublished posts (buttons)
   //update for published posts
-  publishPost(): void {
+  publishDraft(): void {
     //TODO force save the draft
     this.autoSave()
     .then(res => {
+      if (res.success) {
+        ;
+      }
       let currentDate = new Date().toLocaleString('en-US');
 
       // check if the post has ever been published
@@ -125,6 +128,7 @@ export class WysiwygComponent implements OnInit {
       });
     })
     .catch(res => {
+      // TODO proper error handling
       console.log("unable to save before publishing");
       console.log(res);
     });
@@ -137,7 +141,14 @@ export class WysiwygComponent implements OnInit {
     .then(res => {
       if (res.success) {
         this.router.navigate(['/dashboard/posts']);
+      } else {
+        // TODO proper error handling
+        console.log("encountered error while deleting blogpost");
       }
+    })
+    .catch(res => {
+      console.log("error deleting blogpost");
+      console.log(res);
     })
   }
 

@@ -13,11 +13,11 @@ const BlogpostRoutes = {
     get: "http://localhost:3000/api/posts",
     create: "http://localhost:3000/api/posts",
     save: "http://localhost:3000/api/posts",
-    delete: "http://localhost:3000/api/posts/delete",
+    delete: "http://localhost:3000/api/posts",
     getDraft: "http://localhost:3000/api/drafts",
     createDraft: "http://localhost:3000/api/drafts",
     saveDraft: "http://localhost:3000/api/drafts",
-    deleteDraft: "http://localhost:3000/api/drafts/delete",
+    deleteDraft: "http://localhost:3000/api/drafts",
     publishDraft: "http://localhost:3000/api/posts"
 }
 
@@ -74,7 +74,7 @@ export class PostService {
     }
 
     // CREATE draft of post
-    createBlogpostDraft(blogpost: Blogpost) {
+    createBlogpostDraft(blogpost: Blogpost): Promise<any> {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', this.authService.getToken());
@@ -93,7 +93,7 @@ export class PostService {
     }
 
     // Save draft of post
-    saveBlogpostDraft(blogpost: Blogpost) {
+    saveBlogpostDraft(blogpost: Blogpost): Promise<any> {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', this.authService.getToken());
@@ -143,18 +143,22 @@ export class PostService {
         });
     }
 
-    //TODO specify the interface of the promise being returned
-    deleteBlogpost(form): Promise<any> {
+    // DELETE blogpost
+    deleteBlogpost(blogpostId): Promise<any> {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', this.authService.getToken());
 
         return new Promise((resolve, reject) => {
             this.http
-                .post(BlogpostRoutes.delete, { headers: headers })
+                .post(BlogpostRoutes.delete + '/' + blogpostId, { headers: headers })
                 .subscribe(
                 data => {
-                    resolve(data.json());
+                    if (data.status === 200) {
+                        resolve({success: true});
+                    } else {
+                        reject({success: false});
+                    }
                 },
                 err => {
                     reject(err);
@@ -162,20 +166,21 @@ export class PostService {
         });
     }
 
-    deleteDraft(blogpostId: string): Promise<any> {
+    // DELETE draft
+    deleteDraft(draftId: string): Promise<any> {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', this.authService.getToken());
 
         return new Promise((resolve, reject) => {
             this.http
-                .post(BlogpostRoutes.deleteDraft + '/' + blogpostId, { headers: headers })
+                .delete(BlogpostRoutes.deleteDraft + '/' + draftId, { headers: headers })
                 .subscribe(
                 data => {
-                    if (data.status === 400) {
-                        reject({success: false});
-                    } else {
+                    if (data.status === 200) {
                         resolve({success: true});
+                    } else {
+                        reject({success: false});
                     }
                 },
                 err => {
@@ -186,6 +191,7 @@ export class PostService {
 
     // TODO when publishing, check if post has already been published
     // if so, should be doing an update
+    // SHOULD DO THIS AS A HELPER FUNCTION
     publishDraft(blogpost: Blogpost): Promise<any> {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
