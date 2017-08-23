@@ -270,8 +270,8 @@ router.post('/trash', function (req, res, next) {
         deletedBlogpost.last_autosave = req.body.lastAutosave;
         deletedBlogpost.tags = req.body.tags;
         deletedBlogpost.is_published = req.body.isPublished;
-        // newBlogpostDraft.hidden = req.body.hidden;
-        // newBlogpostDraft.meta.favs = req.body.meta.favs;
+        // deletedBlogpost.hidden = req.body.hidden;
+        // deletedBlogpost.meta.favs = req.body.meta.favs;
         console.log(deletedBlogpost);
 
         deletedBlogpost.save(function(err) {
@@ -280,6 +280,42 @@ router.post('/trash', function (req, res, next) {
                 console.log(err);
                 res.sendStatus(400);
             } else {
+                res.sendStatus(200);
+            }
+        });
+    // } else {
+    //     res.sendStatus(403);
+    // }
+});
+
+// GET all blogposts
+router.get('/trash', function(req, res, next) {
+    // var token = req.get('Authorization');
+    // var decoded = jwt.verify(token, config.secret);
+    // if (decoded.admin) {
+        DeletedDraft.find({}, function(err, deletedBlogposts) {
+            if (err) {
+                res.send(err); // TODO figure out how to do error handling
+            } else {
+                res.json(deletedBlogposts);
+            }
+        });
+    // } else {
+    //     res.sendStatus(403);
+    // }
+});
+
+// DELETE blogpost
+router.delete('/trash/:id', function(req, res, next) {
+    // var token = req.get('Authorization');
+    // var decoded = jwt.verify(token, config.secret);
+    // if (decoded.admin) {
+        DeletedDraft.findByIdAndRemove(req.params.id, function(err, deletedBlogpost) {
+            if (err) {
+                res.sendStatus(400);
+                res.send(err);
+            } else {
+                console.log(deletedBlogpost);
                 res.sendStatus(200);
             }
         });
