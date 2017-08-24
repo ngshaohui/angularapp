@@ -15,6 +15,7 @@ import { Blogpost } from '../models/blogpost';
 import { COMPLETED_POSTS } from '../dummydata/dummy-posts';
 
 // TODO reorder this in a sensible manner
+// TODO just have 3 routes since they are largely repeated
 const BlogpostRoutes = {
     get: "http://localhost:3000/api/posts",
     create: "http://localhost:3000/api/posts",

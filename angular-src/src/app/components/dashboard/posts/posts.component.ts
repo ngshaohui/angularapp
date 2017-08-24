@@ -1,3 +1,5 @@
+// TODO style page
+
 import { Component, OnInit } from '@angular/core';
 
 import { PostsService } from './posts.service';
@@ -11,10 +13,10 @@ import { Blogpost } from '../../core/models/blogpost';
   styleUrls: ['./posts.component.scss']
 })
 export class PostsComponent implements OnInit {
-  posts: Blogpost[];
   blogposts: Blogpost[];
   drafts: Blogpost[];
   deletedDrafts: Blogpost[];
+  activeTab: string;
 
   constructor(
     private postService: PostService,
@@ -22,10 +24,15 @@ export class PostsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.activeTab = "blogposts";
     // TODO need to account for when there are no posts at all (loading will continue perpetually)
     this.loadBlogposts();
     this.loadDrafts();
     this.loadDeletedDrafts();
+  }
+
+  changeTab(type: string): void {
+    this.activeTab = type;
   }
 
   private loadBlogposts(): void {
@@ -40,9 +47,11 @@ export class PostsComponent implements OnInit {
   }
 
   private loadDrafts(): void {
+    console.log('loading drafts');
     this.postService.getBlogpostDrafts()
-    .then(((blogposts: Blogpost[])=> {
-      this.drafts = blogposts;
+    .then(((drafts: Blogpost[])=> {
+      this.drafts = drafts;
+      console.log(drafts)
     }))
     .catch(res => {
       console.log("error getting list of drafts");

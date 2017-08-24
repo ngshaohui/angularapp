@@ -1,13 +1,30 @@
 <div class="dashboard-posts-component-wrapper">
-  <div>
+
+  <div class="tab-selection-menu btn-group" data-toggle="buttons">
+    <label (click)="changeTab('blogposts')" class="btn btn-outline-secondary active">
+      <input type="radio" name="options" id="option1" autocomplete="off" checked>
+      Blogposts <span class="badge badge-secondary">4</span>
+    </label>
+    <label (click)="changeTab('drafts')" class="btn btn-outline-secondary">
+      <input type="radio" name="options" id="option2" autocomplete="off">
+      Drafts <span class="badge badge-secondary">4</span>
+    </label>
+    <label (click)="changeTab('deleted')" class="btn btn-outline-secondary">
+      <input type="radio" name="options" id="option3" autocomplete="off">
+      Deleted <span class="badge badge-secondary">4</span>
+    </label>
+  </div>
+
+  <div [hidden]="activeTab !== 'blogposts'">
     <bouncing-loader *ngIf="!blogposts"></bouncing-loader>
     <div *ngIf="blogposts">
       <h2>Published Blogposts</h2>
       <div *ngFor="let blogpost of blogposts">
         <div class="">
+          {{blogpost.created}}
           {{blogpost.title}}
           <div class="">
-            <button class="btn btn-secondary">
+            <button class="btn btn-warning">
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
           </button>
             <button class="btn btn-danger">
@@ -18,4 +35,47 @@
       </div>
     </div>
   </div>
+
+  <div [hidden]="activeTab !== 'drafts'">
+      <bouncing-loader *ngIf="!drafts"></bouncing-loader>
+      <div *ngIf="drafts">
+        <h2>Drafts</h2>
+        <div *ngFor="let draft of drafts">
+          <div class="">
+            {{draft.created}}
+            {{draft.title}}
+            <div class="">
+              <button class="btn btn-warning">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
+            </button>
+              <button class="btn btn-danger">
+              <i class="fa fa-trash" aria-hidden="true"></i> Delete
+            </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div [hidden]="activeTab !== 'deletedDrafts'">
+        <bouncing-loader *ngIf="!blogposts"></bouncing-loader>
+        <div *ngIf="deletedDrafts">
+          <h2>Deleted Drafts</h2>
+          <div *ngFor="let deletedDraft of deletedDrafts">
+            <div class="">
+              {{deletedDraft.created}}
+              {{deletedDraft.title}}
+              <div class="">
+                <button class="btn btn-warning">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
+              </button>
+                <button class="btn btn-danger">
+                <i class="fa fa-trash" aria-hidden="true"></i> Delete
+              </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
 </div>
