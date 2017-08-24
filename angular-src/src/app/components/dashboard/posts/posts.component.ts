@@ -22,11 +22,10 @@ export class PostsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.postsService.getPosts()
-    .then((posts: Blogpost[]) => {
-      this.posts = posts;
-    })
+    // TODO need to account for when there are no posts at all (loading will continue perpetually)
     this.loadBlogposts();
+    this.loadDrafts();
+    this.loadDeletedDrafts();
   }
 
   private loadBlogposts(): void {
