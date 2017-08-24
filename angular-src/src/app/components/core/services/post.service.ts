@@ -20,7 +20,8 @@ const BlogpostRoutes = {
     createDraft: "http://localhost:3000/api/drafts",
     saveDraft: "http://localhost:3000/api/drafts",
     deleteDraft: "http://localhost:3000/api/drafts",
-    publishDraft: "http://localhost:3000/api/posts"
+    publishDraft: "http://localhost:3000/api/posts",
+    getDeletedDraft: "http://localhost:3000/api/trash"
 }
 
 @Injectable()
@@ -276,6 +277,38 @@ export class PostService {
 
     createDeletedDraft() {
         ;
+    }
+
+    getDeletedDrafts() {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', this.authService.getToken());
+
+        return new Promise((resolve, reject) => {
+            this.http
+                .get(BlogpostRoutes.getDeletedDraft, { headers: headers })
+                .subscribe(
+                data => {
+                    let deletedDrafts = [];
+                    let results = data.json();
+                    for (let result of results) {
+                        deletedDrafts.push({
+                            id: result._id,
+                            title: result.title,
+                            content: result.content,
+                            created: result.created,
+                            firstPublished: result.first_published,
+                            lastUpdated: result.last_updated,
+                            lastAutosave: result.last_autosave,
+                            tags: result.tags,
+                        } as Blogpost)
+                    }
+                    resolve(deletedDrafts);
+                },
+                err => {
+                    reject(err);
+                });
+        });
     }
 
     deleteDeletedDraft() {

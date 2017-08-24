@@ -12,6 +12,9 @@ import { Blogpost } from '../../core/models/blogpost';
 })
 export class PostsComponent implements OnInit {
   posts: Blogpost[];
+  blogposts: Blogpost[];
+  drafts: Blogpost[];
+  deletedDrafts: Blogpost[];
 
   constructor(
     private postService: PostService,
@@ -23,6 +26,40 @@ export class PostsComponent implements OnInit {
     .then((posts: Blogpost[]) => {
       this.posts = posts;
     })
+    this.loadBlogposts();
+  }
+
+  private loadBlogposts(): void {
+    this.postService.getBlogposts()
+    .then(((blogposts: Blogpost[])=> {
+      this.blogposts = blogposts;
+    }))
+    .catch(res => {
+      console.log("error getting list of blogposts");
+      console.log(res);
+    });
+  }
+
+  private loadDrafts(): void {
+    this.postService.getBlogpostDrafts()
+    .then(((blogposts: Blogpost[])=> {
+      this.drafts = blogposts;
+    }))
+    .catch(res => {
+      console.log("error getting list of drafts");
+      console.log(res);
+    });
+  }
+
+  private loadDeletedDrafts(): void {
+    this.postService.getBlogposts()
+    .then(((blogposts: Blogpost[])=> {
+      this.deletedDrafts = blogposts;
+    }))
+    .catch(res => {
+      console.log("error getting list of deletedDrafts");
+      console.log(res);
+    });
   }
 
 }
