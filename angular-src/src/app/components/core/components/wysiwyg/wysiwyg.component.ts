@@ -164,7 +164,7 @@ export class WysiwygComponent implements OnInit {
   
     return new Promise((resolve, reject) => {
       this.blogpost.lastAutosave = new Date().toLocaleString('en-US');
-      this.postService.saveBlogpostDraft(this.blogpost)
+      this.postService.updateBlogpostDraft(this.blogpost)
       .then(res => {
         // TODO resolve error, lastAutosave
         this.lastAutosave = new Date().toLocaleString('en-US');
