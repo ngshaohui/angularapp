@@ -10,7 +10,7 @@ var blogpostSchema = new Schema({
   last_updated: { type : String },
   last_autosave: { type : String },
   tags: { type : [String] },
-  is_published: { type : String },
+  is_published: { type : Boolean },
   // is_hidden: Boolean,
   // meta: {
   //   favs: {

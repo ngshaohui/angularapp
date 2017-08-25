@@ -21,7 +21,7 @@
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#postPreviewModal">
                         <i class="fa fa-eye fa-lg"></i> Preview
                     </button>
-                    <button *ngIf="!blogpost.isPublished" (click)="publishPost()" type="button" class="btn btn-primary">
+                    <button *ngIf="!blogpost.isPublished" (click)="publishBlogpost()" type="button" class="btn btn-primary">
                         <i class="fa fa-book fa-lg"></i> Publish
                     </button>
                     <button *ngIf="blogpost.isPublished" (click)="updatePost()" type="button" class="btn btn-primary">
