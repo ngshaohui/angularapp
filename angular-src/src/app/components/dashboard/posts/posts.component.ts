@@ -2,7 +2,6 @@
 
 import { Component, OnInit } from '@angular/core';
 
-import { PostsService } from './posts.service';
 import { PostService } from '../../core/services/post.service';
 
 import { Blogpost } from '../../core/models/blogpost';
@@ -19,16 +18,22 @@ export class PostsComponent implements OnInit {
   activeTab: string;
 
   constructor(
-    private postService: PostService,
-    private postsService: PostsService
+    private postService: PostService
   ) { }
 
   ngOnInit() {
     this.activeTab = "blogposts";
-    // TODO need to account for when there are no posts at all (loading will continue perpetually)
+    // TODO need to account for when there are no posts at all
+    // since loading will continue perpetually
+    // could set a flag for each
     this.loadBlogposts();
     this.loadDrafts();
     this.loadDeletedDrafts();
+  }
+
+  deletePost() {
+    //check if post has been published (go to published post db)
+    //check if post is a draft
   }
 
   changeTab(type: string): void {
@@ -51,7 +56,6 @@ export class PostsComponent implements OnInit {
     this.postService.getBlogpostDrafts()
     .then(((drafts: Blogpost[])=> {
       this.drafts = drafts;
-      console.log(drafts)
     }))
     .catch(res => {
       console.log("error getting list of drafts");

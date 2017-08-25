@@ -21,8 +21,8 @@
       <h2>Published Blogposts</h2>
       <div *ngFor="let blogpost of blogposts">
         <div class="">
-          {{blogpost.created}}
-          {{blogpost.title}}
+          <p>{{blogpost.title}}</p>
+          <p>{{blogpost.created}}</p>
           <div class="">
             <button class="btn btn-warning">
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
@@ -37,45 +37,42 @@
   </div>
 
   <div [hidden]="activeTab !== 'drafts'">
-      <bouncing-loader *ngIf="!drafts"></bouncing-loader>
-      <div *ngIf="drafts">
-        <h2>Drafts</h2>
-        <div *ngFor="let draft of drafts">
+    <bouncing-loader *ngIf="!drafts"></bouncing-loader>
+    <div *ngIf="drafts">
+      <h2>Drafts</h2>
+      <div *ngFor="let draft of drafts">
+        <div class="">
+          <p>{{draft.title}}</p>
+          <p>{{draft.created}}</p>
           <div class="">
-            {{draft.created}}
-            {{draft.title}}
-            <div class="">
-              <button class="btn btn-warning">
-              <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
-            </button>
-              <button class="btn btn-danger">
-              <i class="fa fa-trash" aria-hidden="true"></i> Delete
-            </button>
-            </div>
+            <button class="btn btn-warning">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
+          </button>
+            <button class="btn btn-danger">
+            <i class="fa fa-trash" aria-hidden="true"></i> Delete
+          </button>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div [hidden]="activeTab !== 'deletedDrafts'">
-        <bouncing-loader *ngIf="!blogposts"></bouncing-loader>
-        <div *ngIf="deletedDrafts">
-          <h2>Deleted Drafts</h2>
-          <div *ngFor="let deletedDraft of deletedDrafts">
-            <div class="">
-              {{deletedDraft.created}}
-              {{deletedDraft.title}}
-              <div class="">
-                <button class="btn btn-warning">
-                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
-              </button>
-                <button class="btn btn-danger">
-                <i class="fa fa-trash" aria-hidden="true"></i> Delete
-              </button>
-              </div>
-            </div>
+  <div [hidden]="activeTab !== 'deletedDrafts'">
+    <bouncing-loader *ngIf="!blogposts"></bouncing-loader>
+    <div *ngIf="deletedDrafts">
+      <h2>Deleted Drafts</h2>
+      <div *ngFor="let deletedDraft of deletedDrafts">
+        <div class="">
+          <p>{{deletedDraft.title}}</p>
+          <p>{{deletedDraft.created}}</p>
+          <div class="">
+            <button class="btn btn-primary">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Restore
+            </button>
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
 </div>

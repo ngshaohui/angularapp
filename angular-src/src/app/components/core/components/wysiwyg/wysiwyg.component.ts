@@ -83,9 +83,6 @@ export class WysiwygComponent implements OnInit {
       // TODO handle error
       console.log(res);
     });
-    this.postService.getBlogpostDrafts().then(res => {
-      console.log(res);
-    });
   }
 
   // Initialise quill editor

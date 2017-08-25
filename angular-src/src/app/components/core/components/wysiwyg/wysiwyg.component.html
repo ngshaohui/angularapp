@@ -33,7 +33,7 @@
         <h3>Raw view</h3>
         {{form.controls.editor.value}}
 
-        <div class="modal fade" id="postPreviewModal" tabindex="-1" role="dialog" aria-labelledby="postPreviewModalLabel" aria-hidden="true">
+        <div *ngIf="blogpost" class="modal fade" id="postPreviewModal" tabindex="-1" role="dialog" aria-labelledby="postPreviewModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
