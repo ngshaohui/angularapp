@@ -189,11 +189,43 @@ export class PostService {
                 });
         });
     }
-    
-    // TODO change this
+
     // GET all blogposts
     getBlogposts(): Promise<Blogpost[]> {
-        return Promise.resolve(COMPLETED_POSTS);
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', this.authService.getToken());
+
+        return new Promise((resolve, reject) => {
+            this.http
+                .get(BlogpostRoutes.blogpost, { headers: headers })
+                .subscribe(
+                res => {
+                    if (res.status === 200) {
+                        let blogposts = [];
+                        let results = res.json();
+                        for (let result of results) {
+                            blogposts.push({
+                                id: result._id,
+                                title: result.title,
+                                content: result.content,
+                                created: result.created,
+                                firstPublished: result.first_published,
+                                lastUpdated: result.last_updated,
+                                lastAutosave: result.last_autosave,
+                                tags: result.tags,
+                                isPublished: result.is_published
+                            } as Blogpost)
+                        }
+                        resolve(blogposts);
+                    } else {
+                        reject({success: false});
+                    }
+                },
+                err => {
+                    reject(err);
+                });
+        });
     }
 
     // GET blogpost
