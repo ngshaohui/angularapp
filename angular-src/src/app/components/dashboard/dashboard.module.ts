@@ -11,13 +11,12 @@ import { CoreModule } from '../core/core.module';
 
 import { DashboardComponent } from './dashboard.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { CreatePostComponent } from './create-post/create-post.component';
+import { PostEditorComponent } from './post-editor/post-editor.component';
 import { PostsComponent } from './posts/posts.component';
 import { OverviewComponent } from './overview/overview.component';
 import { MediaComponent } from './media/media.component';
 
 import { AuthGuard } from '../../guards/auth.guard';
-import { CreatePostService } from './create-post/create-post.service';
 
 @NgModule({
   imports: [
@@ -31,15 +30,14 @@ import { CreatePostService } from './create-post/create-post.service';
   declarations: [
     DashboardComponent,
     SidebarComponent,
-    CreatePostComponent,
+    PostEditorComponent,
     PostsComponent,
     OverviewComponent,
     MediaComponent
   ],
   exports: [],
   providers: [
-    AuthGuard,
-    CreatePostService,
+    AuthGuard
   ]
 })
 

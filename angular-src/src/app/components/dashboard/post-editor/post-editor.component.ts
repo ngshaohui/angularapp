@@ -6,23 +6,21 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import { IdService } from '../../core/services/id.service';
 
 import { PostService } from '../../core/services/post.service';
-import { CreatePostService } from './create-post.service';
 
 import { Blogpost } from '../../core/models/blogpost';
 
 @Component({
-  selector: 'create-post',
-  templateUrl: './create-post.component.html',
-  styleUrls: ['./create-post.component.scss']
+  selector: 'post-editor',
+  templateUrl: './post-editor.component.html',
+  styleUrls: ['./post-editor.component.scss']
 })
-export class CreatePostComponent implements OnInit {
+export class PostEditorComponent implements OnInit {
   postId: String;
 
   constructor(
     private fb: FormBuilder,
     private idService: IdService,
-    private postService: PostService,
-    private createPostService: CreatePostService
+    private postService: PostService
   ) {
   }
 
