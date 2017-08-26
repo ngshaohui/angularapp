@@ -13,9 +13,12 @@ import { Blogpost } from '../../core/models/blogpost';
   styleUrls: ['./posts.component.scss']
 })
 export class PostsComponent implements OnInit {
+  blogpostsLoading: boolean;
+  draftsLoading: boolean;
+  deletedPostsLoading: boolean;
   blogposts: Blogpost[];
   drafts: Blogpost[];
-  deletedDrafts: Blogpost[];
+  deletedPosts: Blogpost[];
   activeTab: string;
   isUpdating: boolean;
 
@@ -29,6 +32,9 @@ export class PostsComponent implements OnInit {
     // TODO need to account for when there are no posts at all
     // since loading will continue perpetually
     // could set a flag for each
+    this.blogpostsLoading = true;
+    this.draftsLoading = true;
+    this.deletedPostsLoading = true;
     this.loadBlogposts();
     this.loadDrafts();
     this.loadDeletedDrafts();
@@ -109,8 +115,10 @@ export class PostsComponent implements OnInit {
     this.postService.getBlogposts()
     .then(((blogposts: Blogpost[])=> {
       this.blogposts = blogposts;
+      this.blogpostsLoading = false;
     }))
     .catch(res => {
+      this.blogpostsLoading = false;
       console.log("error getting list of blogposts");
       console.log(res);
     });
@@ -120,8 +128,10 @@ export class PostsComponent implements OnInit {
     this.postService.getBlogpostDrafts()
     .then(((drafts: Blogpost[])=> {
       this.drafts = drafts;
+      this.draftsLoading = false;
     }))
     .catch(res => {
+      this.draftsLoading = false;
       console.log("error getting list of drafts");
       console.log(res);
     });
@@ -130,10 +140,12 @@ export class PostsComponent implements OnInit {
   private loadDeletedDrafts(): void {
     this.postService.getDeletedDrafts()
     .then(((blogposts: Blogpost[])=> {
-      this.deletedDrafts = blogposts;
+      this.deletedPosts = blogposts;
+      this.deletedPostsLoading = false;
     }))
     .catch(res => {
-      console.log("error getting list of deletedDrafts");
+      this.deletedPostsLoading = false;
+      console.log("error getting list of deletedPosts");
       console.log(res);
     });
   }

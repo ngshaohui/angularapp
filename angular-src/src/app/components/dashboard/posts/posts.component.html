@@ -1,22 +1,22 @@
 <div class="dashboard-posts-component-wrapper">
 
   <div class="tab-selection-menu btn-group" data-toggle="buttons">
-    <label (click)="changeTab('blogposts')" class="view-posts-nav-btn btn btn-outline-secondary active">
+    <label (click)="changeTab('blogposts')" class="btn btn-outline-secondary active">
       <input type="radio" name="options" id="option1" autocomplete="off" checked>
       Blogposts <span *ngIf="blogposts" class="badge badge-secondary">{{blogposts.length}}</span>
     </label>
-    <label (click)="changeTab('drafts')" class="view-posts-nav-btn btn btn-outline-secondary">
+    <label (click)="changeTab('drafts')" class="btn btn-outline-secondary">
       <input type="radio" name="options" id="option2" autocomplete="off">
       Drafts <span *ngIf="drafts" class="badge badge-secondary">{{drafts.length}}</span>
     </label>
-    <label (click)="changeTab('deleted')" class="view-posts-nav-btn btn btn-outline-secondary">
+    <label (click)="changeTab('deleted')" class="btn btn-outline-secondary">
       <input type="radio" name="options" id="option3" autocomplete="off">
       Deleted <span *ngIf="deletedDrafts" class="badge badge-secondary">{{deletedDrafts.length}}</span>
     </label>
   </div>
 
   <div [hidden]="activeTab !== 'blogposts'">
-    <bouncing-loader *ngIf="!blogposts"></bouncing-loader>
+    <bouncing-loader *ngIf="blogpostsLoading"></bouncing-loader>
     <div *ngIf="blogposts">
       <h2>Published Blogposts</h2>
       <div *ngFor="let blogpost of blogposts">
@@ -38,7 +38,7 @@
   </div>
 
   <div [hidden]="activeTab !== 'drafts'">
-    <bouncing-loader *ngIf="!drafts"></bouncing-loader>
+    <bouncing-loader *ngIf="draftsLoading"></bouncing-loader>
     <div *ngIf="drafts">
       <h2>Drafts</h2>
       <div *ngFor="let draft of drafts">
@@ -60,7 +60,7 @@
   </div>
 
   <div [hidden]="activeTab !== 'deleted'">
-    <bouncing-loader *ngIf="!blogposts"></bouncing-loader>
+    <bouncing-loader *ngIf="deletedPostsLoading"></bouncing-loader>
     <div *ngIf="deletedDrafts">
       <h2>Deleted Drafts</h2>
       <div *ngFor="let deletedDraft of deletedDrafts">
