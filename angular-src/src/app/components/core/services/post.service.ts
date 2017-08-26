@@ -397,7 +397,7 @@ export class PostService {
     }
 
     // DELETE deleted
-    deleteDeletedDraft(draftId: string) {
+    deleteDeletedDraft(draftId: string): Promise<any> {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', this.authService.getToken());
@@ -479,7 +479,7 @@ export class PostService {
         });
     }
 
-    moveDraftToDeleted(draftId: string) {
+    moveDraftToDeleted(draftId: string): Promise<any> {
         return new Promise((resolve, reject) => {
             this.getBlogpostDraft(draftId) // get draft
             .then((draft: Blogpost) => {

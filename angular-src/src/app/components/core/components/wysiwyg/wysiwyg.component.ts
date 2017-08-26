@@ -7,6 +7,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs/Subject';
 import { QuillEditorComponent } from 'ngx-quill/src/quill-editor.component';
 import "rxjs/add/operator/debounceTime";
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -24,6 +25,8 @@ import { Blogpost } from '../../models/blogpost';
 export class WysiwygComponent implements OnInit {
   @Input()
   blogpostId: string;
+
+  blogpostTitle = new Subject<string>();
 
   blogpost: Blogpost;
   lastAutosave: string;
@@ -74,25 +77,31 @@ export class WysiwygComponent implements OnInit {
     this.initializeQuill();
     // TODO refactor the following to its own function
     this.postService.getBlogpostDraft(this.blogpostId)
-    .then((blogpost: Blogpost) => {
-      console.log(blogpost);
-      this.blogpost = blogpost;
-      this.lastAutosave = blogpost.lastAutosave;
-    })
-    .catch((res: any) => {
-      // TODO handle error
-      console.log(res);
-    });
+      .then((blogpost: Blogpost) => {
+        console.log(blogpost);
+        this.blogpost = blogpost;
+        this.lastAutosave = blogpost.lastAutosave;
+        this.blogpostTitle // watch for title change
+        .debounceTime(800)
+        .distinctUntilChanged()
+        .subscribe(data => {
+          this.autoSave();
+        });
+      })
+      .catch((res: any) => {
+        // TODO handle error
+        console.log(res);
+      });
   }
 
   // Initialise quill editor
   private initializeQuill(): void {
     this.editor
-    .onContentChanged.debounceTime(800)
-    .distinctUntilChanged()
-    .subscribe(data => {
-      this.autoSave();
-    });
+      .onContentChanged.debounceTime(800)
+      .distinctUntilChanged()
+      .subscribe(data => {
+        this.autoSave();
+      });
     this.editor.modules = this.customQuillToolbar; //load custom toolbar
     this.editor.placeholder = this.placeholderTexts[Math.floor(Math.random() * this.placeholderTexts.length)];
   }
@@ -102,75 +111,75 @@ export class WysiwygComponent implements OnInit {
   publishBlogpost(): void {
     //TODO force save the draft
     this.autoSave()
-    .then(res => {
-      if (res.success) {
-        ;
-      }
-      let currentDate = new Date().toLocaleString('en-US');
-
-      // check if the post has ever been published
-      if (!this.blogpost.firstPublished) {
-        this.blogpost.firstPublished = currentDate;
-      }
-
-      // store/update the date of publish
-      this.blogpost.lastUpdated = currentDate;
-
-      this.postService.publishBlogpost(this.blogpost)
       .then(res => {
         if (res.success) {
-          this.router.navigate(['/dashboard/posts']);
-        } else {
-          // TODO error handling
-          console.log("unable to publish the blogpost draft");
+          ;
         }
+        let currentDate = new Date().toLocaleString('en-US');
+
+        // check if the post has ever been published
+        if (!this.blogpost.firstPublished) {
+          this.blogpost.firstPublished = currentDate;
+        }
+
+        // store/update the date of publish
+        this.blogpost.lastUpdated = currentDate;
+
+        this.postService.publishBlogpost(this.blogpost)
+          .then(res => {
+            if (res.success) {
+              this.router.navigate(['/dashboard/posts']);
+            } else {
+              // TODO error handling
+              console.log("unable to publish the blogpost draft");
+            }
+          })
+          .catch(res => {
+            // TODO proper error handling
+            console.log("an error occured while publishing the post");
+          });
       })
       .catch(res => {
         // TODO proper error handling
-        console.log("an error occured while publishing the post");
+        console.log("unable to save before publishing");
+        console.log(res);
       });
-    })
-    .catch(res => {
-      // TODO proper error handling
-      console.log("unable to save before publishing");
-      console.log(res);
-    });
   }
 
   // TODO have a confirmation modal before deleting post
   // have a db for storing the deleted posts
   deleteDraft(): void {
     this.postService.deleteDraft(this.blogpost.id)
-    .then(res => {
-      if (res.success) {
-        this.router.navigate(['/dashboard/posts']);
-      } else {
-        // TODO proper error handling
-        console.log("encountered error while deleting blogpost");
-      }
-    })
-    .catch(res => {
-      console.log("error deleting blogpost");
-      console.log(res);
-    })
+      .then(res => {
+        if (res.success) {
+          this.router.navigate(['/dashboard/posts']);
+        } else {
+          // TODO proper error handling
+          console.log("encountered error while deleting blogpost");
+        }
+      })
+      .catch(res => {
+        console.log("error deleting blogpost");
+        console.log(res);
+      })
   }
 
   //this should be in a service
   private autoSave(): Promise<any> {
     this.blogpost.content = this.form.controls.editor.value;
-  
+
     return new Promise((resolve, reject) => {
       this.blogpost.lastAutosave = new Date().toLocaleString('en-US');
       this.postService.updateBlogpostDraft(this.blogpost)
-      .then(res => {
-        // TODO resolve error, lastAutosave
-        this.lastAutosave = new Date().toLocaleString('en-US');
-        resolve({success: true});
-      })
-      .catch(res => {
-        console.log("unable to autosave");
-        reject({success: false});
-      });
+        .then(res => {
+          // TODO resolve error, lastAutosave
+          this.lastAutosave = new Date().toLocaleString('en-US');
+          resolve({ success: true });
+        })
+        .catch(res => {
+          console.log("unable to autosave");
+          reject({ success: false });
+        });
     });
   }
 }

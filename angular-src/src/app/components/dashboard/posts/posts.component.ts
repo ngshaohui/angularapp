@@ -16,6 +16,7 @@ export class PostsComponent implements OnInit {
   drafts: Blogpost[];
   deletedDrafts: Blogpost[];
   activeTab: string;
+  isUpdating: boolean;
 
   constructor(
     private postService: PostService
@@ -29,11 +30,56 @@ export class PostsComponent implements OnInit {
     this.loadBlogposts();
     this.loadDrafts();
     this.loadDeletedDrafts();
+    this.isUpdating = false; // disable the delete button before the action has been executed
   }
 
-  deletePost() {
-    //check if post has been published (go to published post db)
-    //check if post is a draft
+  deleteDraft(blogpostId: string) {
+    this.postService.moveDraftToDeleted(blogpostId)
+    .then(res => {
+      if (res.success) {
+        this.loadDrafts();
+        this.loadDeletedDrafts();
+      } else {
+        // TODO proper error handling
+        console.log("unable to delete blogpost");
+      }
+    })
+    .catch(res => {
+      console.log("unable to delete blogpost");
+    });
+  }
+
+  deleteBlogpost(blogpostId: string) {
+    this.postService.deleteBlogpost(blogpostId)
+    .then(res => {
+      if (res.success) {
+        this.loadBlogposts();
+        this.loadDeletedDrafts();
+      } else {
+        // TODO proper error handling
+        console.log("unable to delete blogpost");
+      }
+    })
+    .catch(res => {
+      console.log("unable to delete blogpost");
+    });
+  }
+
+  deleteDeletedDraft(blogpostId: string) {
+    this.postService.deleteDeletedDraft(blogpostId)
+    .then(res => {
+      if (res.success) {
+        this.loadBlogposts();
+        this.loadDrafts();
+        this.loadDeletedDrafts();
+      } else {
+        // TODO proper error handling
+        console.log("unable to delete blogpost");
+      }
+    })
+    .catch(res => {
+      console.log("unable to delete blogpost");
+    });
   }
 
   changeTab(type: string): void {
@@ -52,7 +98,6 @@ export class PostsComponent implements OnInit {
   }
 
   private loadDrafts(): void {
-    console.log('loading drafts');
     this.postService.getBlogpostDrafts()
     .then(((drafts: Blogpost[])=> {
       this.drafts = drafts;
@@ -64,7 +109,7 @@ export class PostsComponent implements OnInit {
   }
 
   private loadDeletedDrafts(): void {
-    this.postService.getBlogposts()
+    this.postService.getDeletedDrafts()
     .then(((blogposts: Blogpost[])=> {
       this.deletedDrafts = blogposts;
     }))

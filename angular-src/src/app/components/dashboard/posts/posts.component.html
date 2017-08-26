@@ -1,15 +1,15 @@
 <div class="dashboard-posts-component-wrapper">
 
   <div class="tab-selection-menu btn-group" data-toggle="buttons">
-    <label (click)="changeTab('blogposts')" class="btn btn-outline-secondary active">
+    <label (click)="changeTab('blogposts')" class="view-posts-nav-btn btn btn-outline-secondary active">
       <input type="radio" name="options" id="option1" autocomplete="off" checked>
       Blogposts <span class="badge badge-secondary">4</span>
     </label>
-    <label (click)="changeTab('drafts')" class="btn btn-outline-secondary">
+    <label (click)="changeTab('drafts')" class="view-posts-nav-btn btn btn-outline-secondary">
       <input type="radio" name="options" id="option2" autocomplete="off">
       Drafts <span class="badge badge-secondary">4</span>
     </label>
-    <label (click)="changeTab('deleted')" class="btn btn-outline-secondary">
+    <label (click)="changeTab('deleted')" class="view-posts-nav-btn btn btn-outline-secondary">
       <input type="radio" name="options" id="option3" autocomplete="off">
       Deleted <span class="badge badge-secondary">4</span>
     </label>
@@ -20,16 +20,17 @@
     <div *ngIf="blogposts">
       <h2>Published Blogposts</h2>
       <div *ngFor="let blogpost of blogposts">
-        <div class="">
-          <p>{{blogpost.title}}</p>
+        <div class="card-body">
+          <h4 class="card-title">{{blogpost.title}}</h4>
+          <p>{{blogpost.id}}</p>
           <p>{{blogpost.created}}</p>
           <div class="">
             <button class="btn btn-warning">
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
-          </button>
-            <button class="btn btn-danger">
-            <i class="fa fa-trash" aria-hidden="true"></i> Delete
-          </button>
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
+            </button>
+            <button (click)="deleteBlogpost(blogpost.id)" class="btn btn-danger">
+              <i class="fa fa-trash" aria-hidden="true"></i> Delete
+            </button>
           </div>
         </div>
       </div>
@@ -41,33 +42,38 @@
     <div *ngIf="drafts">
       <h2>Drafts</h2>
       <div *ngFor="let draft of drafts">
-        <div class="">
-          <p>{{draft.title}}</p>
+        <div class="card-body">
+          <h4 class="card-title">{{draft.title}}</h4>
+          <p>{{draft.id}}</p>
           <p>{{draft.created}}</p>
           <div class="">
             <button class="btn btn-warning">
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
-          </button>
-            <button class="btn btn-danger">
-            <i class="fa fa-trash" aria-hidden="true"></i> Delete
-          </button>
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
+            </button>
+            <button (click)="deleteDraft(draft.id)" class="btn btn-danger">
+              <i class="fa fa-trash" aria-hidden="true"></i> Delete
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div [hidden]="activeTab !== 'deletedDrafts'">
+  <div [hidden]="activeTab !== 'deleted'">
     <bouncing-loader *ngIf="!blogposts"></bouncing-loader>
     <div *ngIf="deletedDrafts">
       <h2>Deleted Drafts</h2>
       <div *ngFor="let deletedDraft of deletedDrafts">
-        <div class="">
-          <p>{{deletedDraft.title}}</p>
+        <div class="card-body">
+          <h4 class="card-title">{{deletedDraft.title}}</h4>
+          <p>{{deletedDraft.id}}</p>
           <p>{{deletedDraft.created}}</p>
           <div class="">
             <button class="btn btn-primary">
               <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Restore
+            </button>
+            <button (click)="deleteDeletedDraft(deletedDraft.id)" class="btn btn-danger">
+              <i class="fa fa-trash" aria-hidden="true"></i> Delete
             </button>
           </div>
         </div>

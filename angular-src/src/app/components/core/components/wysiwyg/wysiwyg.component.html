@@ -4,7 +4,7 @@
     </div>
     <div [hidden]="!blogpost">
         <div *ngIf="blogpost">
-            <input type="text" [(ngModel)]="blogpost.title" class="form-control post-title" placeholder="Title">
+            <input type="text" (keyup)='blogpostTitle.next($event)' [(ngModel)]="blogpost.title" class="form-control post-title" placeholder="Title">
         </div>
         <form [formGroup]="form">
             <quill-editor #editor formControlName="editor"></quill-editor>
