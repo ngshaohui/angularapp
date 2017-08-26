@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { QuillEditorComponent } from 'ngx-quill/src/quill-editor.component';
 import "rxjs/add/operator/debounceTime";
 import 'rxjs/add/operator/distinctUntilChanged';
-import { IdService } from '../../core/services/id.service';
+import 'rxjs/add/operator/switchMap';
 
+import { IdService } from '../../core/services/id.service';
 import { PostService } from '../../core/services/post.service';
 
 import { Blogpost } from '../../core/models/blogpost';
@@ -18,13 +19,23 @@ export class PostEditorComponent implements OnInit {
   postId: String;
 
   constructor(
-    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
     private idService: IdService,
     private postService: PostService
   ) {
   }
 
   ngOnInit() {
+    this.route.paramMap
+    .switchMap((params: ParamMap) =>
+      this.postId = params.get('blogpostId'));
+    if (!this.postId) { //if no route parameters were passed
+      this.createNewBlogpost();
+    }
+  }
+
+  private createNewBlogpost(): void {
     //create the empty blogpost
     let blogpost = new Blogpost;
     blogpost.id = this.idService.generateUniqueId();
@@ -44,7 +55,6 @@ export class PostEditorComponent implements OnInit {
     .catch(res => {
       console.log(res);
     });
-    //only create the wysiwyg component when the blogpost has been created in the db
   }
 
 }

@@ -1,6 +1,7 @@
 // TODO style page
 
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { PostService } from '../../core/services/post.service';
 
@@ -19,6 +20,7 @@ export class PostsComponent implements OnInit {
   isUpdating: boolean;
 
   constructor(
+    private router: Router,
     private postService: PostService
   ) { }
 
@@ -33,11 +35,24 @@ export class PostsComponent implements OnInit {
     this.isUpdating = false; // disable the delete button before the action has been executed
   }
 
-  deleteDraft(blogpostId: string) {
-    this.postService.moveDraftToDeleted(blogpostId)
+  editBlogpost(blogpost: Blogpost) {
+    // create draft
+    // navigate to post-editor component after creation
+    this.postService.createBlogpostDraft(blogpost)
+    .then(res => {
+      this.router.navigate(['/dashboard/post', blogpost.id]);
+    })
+    .catch(res => {
+      // TODO proper error handling
+      console.log("unable to create draft");
+    });
+  }
+  
+  deleteBlogpost(blogpostId: string) {
+    this.postService.deleteBlogpost(blogpostId)
     .then(res => {
       if (res.success) {
-        this.loadDrafts();
+        this.loadBlogposts();
         this.loadDeletedDrafts();
       } else {
         // TODO proper error handling
@@ -49,11 +64,15 @@ export class PostsComponent implements OnInit {
     });
   }
 
-  deleteBlogpost(blogpostId: string) {
-    this.postService.deleteBlogpost(blogpostId)
+  editDraft(blogpostId: string) {
+    this.router.navigate(['/dashboard/post', blogpostId]);
+  }
+
+  deleteDraft(blogpostId: string) {
+    this.postService.moveDraftToDeleted(blogpostId)
     .then(res => {
       if (res.success) {
-        this.loadBlogposts();
+        this.loadDrafts();
         this.loadDeletedDrafts();
       } else {
         // TODO proper error handling

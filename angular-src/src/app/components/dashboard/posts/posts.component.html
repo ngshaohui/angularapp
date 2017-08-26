@@ -3,15 +3,15 @@
   <div class="tab-selection-menu btn-group" data-toggle="buttons">
     <label (click)="changeTab('blogposts')" class="view-posts-nav-btn btn btn-outline-secondary active">
       <input type="radio" name="options" id="option1" autocomplete="off" checked>
-      Blogposts <span class="badge badge-secondary">4</span>
+      Blogposts <span *ngIf="blogposts" class="badge badge-secondary">{{blogposts.length}}</span>
     </label>
     <label (click)="changeTab('drafts')" class="view-posts-nav-btn btn btn-outline-secondary">
       <input type="radio" name="options" id="option2" autocomplete="off">
-      Drafts <span class="badge badge-secondary">4</span>
+      Drafts <span *ngIf="drafts" class="badge badge-secondary">{{drafts.length}}</span>
     </label>
     <label (click)="changeTab('deleted')" class="view-posts-nav-btn btn btn-outline-secondary">
       <input type="radio" name="options" id="option3" autocomplete="off">
-      Deleted <span class="badge badge-secondary">4</span>
+      Deleted <span *ngIf="deletedDrafts" class="badge badge-secondary">{{deletedDrafts.length}}</span>
     </label>
   </div>
 
@@ -25,7 +25,7 @@
           <p>{{blogpost.id}}</p>
           <p>{{blogpost.created}}</p>
           <div class="">
-            <button class="btn btn-warning">
+            <button (click)="editBlogpost(blogpost)" class="btn btn-warning">
               <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
             </button>
             <button (click)="deleteBlogpost(blogpost.id)" class="btn btn-danger">
@@ -47,7 +47,7 @@
           <p>{{draft.id}}</p>
           <p>{{draft.created}}</p>
           <div class="">
-            <button class="btn btn-warning">
+            <button (click)="editDraft(draft.id)" class="btn btn-warning">
               <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
             </button>
             <button (click)="deleteDraft(draft.id)" class="btn btn-danger">

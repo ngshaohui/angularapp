@@ -1,7 +1,6 @@
 /* 
  * TODO 
  * rename to wysiwyg-editor
- * add autosave to title
  */
 
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
