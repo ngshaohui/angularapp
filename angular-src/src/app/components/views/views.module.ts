@@ -15,6 +15,8 @@ import { ContactService } from './contact/contact.service';
 
 import { ViewsRouter } from './views-router';
 import { FooterComponent } from './footer/footer.component';
+import { PlannerComponent } from './planner/planner.component';
+import { MapComponent } from './planner/map/map.component';
 
 @NgModule({
     imports: [
@@ -29,7 +31,7 @@ import { FooterComponent } from './footer/footer.component';
         NavbarComponent, 
         AboutComponent, 
         ContactComponent, 
-        ProductsComponent, FooterComponent
+        ProductsComponent, FooterComponent, PlannerComponent, MapComponent
     ],
     exports: [],
     providers: [ContactService]
