@@ -11,6 +11,9 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { ProductsComponent } from './products/products.component';
 
+import { AgmCoreModule } from '@agm/core';
+import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
+
 import { ContactService } from './contact/contact.service';
 
 import { ViewsRouter } from './views-router';
@@ -18,19 +21,25 @@ import { FooterComponent } from './footer/footer.component';
 import { PlannerComponent } from './planner/planner.component';
 import { MapComponent } from './planner/map/map.component';
 
+import { API_KEYS } from '../core/credentials';
+
 @NgModule({
     imports: [
-        CommonModule, 
-        FormsModule, 
-        ReactiveFormsModule, 
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         HomeModule,
+        AgmCoreModule.forRoot({
+            apiKey: API_KEYS.GOOGLE_MAPS_JAVASCRIPT_API
+        }),
+        AgmSnazzyInfoWindowModule,
         ViewsRouter
     ],
     declarations: [
-        ViewsComponent, 
-        NavbarComponent, 
-        AboutComponent, 
-        ContactComponent, 
+        ViewsComponent,
+        NavbarComponent,
+        AboutComponent,
+        ContactComponent,
         ProductsComponent, FooterComponent, PlannerComponent, MapComponent
     ],
     exports: [],
