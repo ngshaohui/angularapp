@@ -18,7 +18,7 @@ const viewsRoutes: Routes = [
         children: [
             { path: '', component: OverviewComponent },
             { path: 'post', component: PostEditorComponent },
-            { path: 'post/:blogpostId', component: PostEditorComponent },
+            { path: 'post/:id', component: PostEditorComponent },
             { path: 'posts', component: PostsComponent },
             { path: 'media', component: MediaComponent }
         ]

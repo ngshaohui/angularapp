@@ -37,10 +37,12 @@ export class PostsComponent implements OnInit {
     this.deletedPostsLoading = true;
     this.loadBlogposts();
     this.loadDrafts();
-    this.loadDeletedDrafts();
+    this.loadDeletedPosts();
     this.isUpdating = false; // disable the delete button before the action has been executed
   }
 
+  // TODO check if draft already exists
+  // if it does, prompt user to restore or discard draft
   editBlogpost(blogpost: Blogpost) {
     // create draft
     // navigate to post-editor component after creation
@@ -59,7 +61,7 @@ export class PostsComponent implements OnInit {
     .then(res => {
       if (res.success) {
         this.loadBlogposts();
-        this.loadDeletedDrafts();
+        this.loadDeletedPosts();
       } else {
         // TODO proper error handling
         console.log("unable to delete blogpost");
@@ -79,7 +81,7 @@ export class PostsComponent implements OnInit {
     .then(res => {
       if (res.success) {
         this.loadDrafts();
-        this.loadDeletedDrafts();
+        this.loadDeletedPosts();
       } else {
         // TODO proper error handling
         console.log("unable to delete blogpost");
@@ -96,7 +98,7 @@ export class PostsComponent implements OnInit {
       if (res.success) {
         this.loadBlogposts();
         this.loadDrafts();
-        this.loadDeletedDrafts();
+        this.loadDeletedPosts();
       } else {
         // TODO proper error handling
         console.log("unable to delete blogpost");
@@ -137,7 +139,7 @@ export class PostsComponent implements OnInit {
     });
   }
 
-  private loadDeletedDrafts(): void {
+  private loadDeletedPosts(): void {
     this.postService.getDeletedDrafts()
     .then(((blogposts: Blogpost[])=> {
       this.deletedPosts = blogposts;

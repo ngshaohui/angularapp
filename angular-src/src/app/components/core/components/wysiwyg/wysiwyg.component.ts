@@ -80,6 +80,7 @@ export class WysiwygComponent implements OnInit {
         console.log(blogpost);
         this.blogpost = blogpost;
         this.lastAutosave = blogpost.lastAutosave;
+        this.form.controls['editor'].patchValue(blogpost.content);
         this.blogpostTitle // watch for title change
         .debounceTime(800)
         .distinctUntilChanged()

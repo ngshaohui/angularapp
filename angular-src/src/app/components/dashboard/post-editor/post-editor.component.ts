@@ -27,9 +27,9 @@ export class PostEditorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.paramMap
-    .switchMap((params: ParamMap) =>
-      this.postId = params.get('blogpostId'));
+    this.route.params.subscribe(params => {
+      this.postId = params['id'];
+    });
     if (!this.postId) { //if no route parameters were passed
       this.createNewBlogpost();
     }

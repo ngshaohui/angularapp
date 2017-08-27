@@ -11,7 +11,7 @@
     </label>
     <label (click)="changeTab('deleted')" class="btn btn-outline-secondary">
       <input type="radio" name="options" id="option3" autocomplete="off">
-      Deleted <span *ngIf="deletedDrafts" class="badge badge-secondary">{{deletedDrafts.length}}</span>
+      Deleted <span *ngIf="deletedPosts" class="badge badge-secondary">{{deletedPosts.length}}</span>
     </label>
   </div>
 
@@ -61,18 +61,18 @@
 
   <div [hidden]="activeTab !== 'deleted'">
     <bouncing-loader *ngIf="deletedPostsLoading"></bouncing-loader>
-    <div *ngIf="deletedDrafts">
+    <div *ngIf="deletedPosts">
       <h2>Deleted Drafts</h2>
-      <div *ngFor="let deletedDraft of deletedDrafts">
+      <div *ngFor="let deletedPost of deletedPosts">
         <div class="card-body">
-          <h4 class="card-title">{{deletedDraft.title}}</h4>
-          <p>{{deletedDraft.id}}</p>
-          <p>{{deletedDraft.created}}</p>
+          <h4 class="card-title">{{deletedPost.title}}</h4>
+          <p>{{deletedPost.id}}</p>
+          <p>{{deletedPost.created}}</p>
           <div class="">
             <button class="btn btn-primary">
               <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Restore
             </button>
-            <button (click)="deleteDeletedDraft(deletedDraft.id)" class="btn btn-danger">
+            <button (click)="deleteDeletedDraft(deletedPost.id)" class="btn btn-danger">
               <i class="fa fa-trash" aria-hidden="true"></i> Delete
             </button>
           </div>
